@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "migrate": "node migrate.js",
+    "start": "node index.js",
+    "lint": "echo '----- Checking backend...' && npx prettier --debug-check . && eslint --ext .js . && echo '----- Done!'",
+    "fix": "prettier --write . && eslint --fix --ext .js .",
+    "lint:clean": "eslint --no-eslintrc --ignore-path .gitignore --ignore-pattern '!**/*.{js,jsx}' --ext .js,.jsx --fix . && git add . && git restore --source=1 --staged --worktree",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +23,27 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.1",
-    "nodemailer": "^6.9.10",
-    "nodemon": "^3.0.3"
+    "nodemailer": "^6.9.10"
+  },
+  "rules": {
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.3",
+    "prettier": "2.8.2"
   }
 }

@@ -4,6 +4,7 @@ class userManager extends AbstractManager {
   constructor() {
     super({ table: "user" });
   }
+
   async insertUser(user) {
     const query = `
       INSERT INTO ${this.table}
@@ -23,4 +24,3 @@ class userManager extends AbstractManager {
 }
 
 module.exports = userManager;
-

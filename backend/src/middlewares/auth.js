@@ -26,6 +26,7 @@ const hashPassword = async (req, res, next) => {
     console.error(err);
     res.sendStatus(500);
   }
+  return null;
 };
 
 module.exports = {
