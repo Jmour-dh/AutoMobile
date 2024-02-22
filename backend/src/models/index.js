@@ -37,6 +37,11 @@ const UserManager = require("./Manager/UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
+const ExperiedTokenManager = require("./Manager/ExperiedTokenManager");
+
+models.experiedToken = new ExperiedTokenManager();
+models.experiedToken.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
