@@ -1,4 +1,4 @@
-const AbstractManager = require("../AbstractManager/AbstractManager");
+const AbstractManager = require("../AbstractManager");
 
 class ExperiedTokenManager extends AbstractManager {
   constructor() {

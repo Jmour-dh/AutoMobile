@@ -42,6 +42,11 @@ const ExperiedTokenManager = require("./Manager/ExperiedTokenManager");
 models.experiedToken = new ExperiedTokenManager();
 models.experiedToken.setDatabase(pool);
 
+const MotoManager = require("./Manager/MotoManager");
+
+models.moto = new MotoManager();
+models.moto.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
