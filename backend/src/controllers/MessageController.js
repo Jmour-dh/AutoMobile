@@ -1,11 +1,11 @@
 const models = require("../models");
 
-const createMoto = (req, res) => {
-  const moto = req.body;
-  models.moto
-    .insertMoto(moto)
+const createMessage = (req, res) => {
+  const message = req.body;
+  models.message
+    .insertMessage(message)
     .then(([result]) => {
-      res.location(`/motos/${result.insertId}`).sendStatus(201);
+      res.location(`/messages/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -13,8 +13,8 @@ const createMoto = (req, res) => {
     });
 };
 
-const getMotoByID = (req, res) => {
-  models.moto
+const getMessageByID = (req, res) => {
+  models.message
     .findByPK(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -29,8 +29,8 @@ const getMotoByID = (req, res) => {
     });
 };
 
-const getAllMotos = (req, res) => {
-  models.moto
+const getAllMessages = (req, res) => {
+  models.message
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -41,13 +41,13 @@ const getAllMotos = (req, res) => {
     });
 };
 
-const updateMoto = (req, res) => {
-  const moto = req.body;
-  const motoID = req.Moto_ID;
-  moto.id = parseInt(req.params.id, 10);
+const updateMessage = (req, res) => {
+  const message = req.body;
+  const messageID = req.Message_ID;
+  message.id = parseInt(req.params.id, 10);
 
-  models.moto
-    .update(moto, motoID)
+  models.message
+    .update(message, messageID)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -61,15 +61,15 @@ const updateMoto = (req, res) => {
     });
 };
 
-const deleteMoto = (req, res) => {
-  const motoID = req.params.id;
+const deleteMessage = (req, res) => {
+  const messageID = req.params.id;
 
-  models.moto
-    .deleteMoto(motoID)
+  models.message
+    .deleteMessage(messageID)
     .then((result) => {
       if (result.affectedRows > 0) {
         console.info(
-          `La moto avec l'ID ${motoID} a été supprimée avec succès.`
+          `La moto avec l'ID ${messageID} a été supprimée avec succès.`
         );
       }
       res.sendStatus(204);
@@ -81,9 +81,9 @@ const deleteMoto = (req, res) => {
 };
 
 module.exports = {
-  createMoto,
-  getMotoByID,
-  updateMoto,
-  getAllMotos,
-  deleteMoto,
+  createMessage,
+  getMessageByID,
+  getAllMessages,
+  updateMessage,
+  deleteMessage,
 };

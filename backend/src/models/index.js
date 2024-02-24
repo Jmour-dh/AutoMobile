@@ -47,6 +47,11 @@ const MotoManager = require("./Manager/MotoManager");
 models.moto = new MotoManager();
 models.moto.setDatabase(pool);
 
+const MessageManager = require("./Manager/MessageManager");
+
+models.message = new MessageManager();
+models.message.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
