@@ -1,11 +1,11 @@
 const models = require("../models");
 
-const createMessage = (req, res) => {
-  const message = req.body;
-  models.message
-    .insertMessage(message)
+const createService = (req, res) => {
+  const service = req.body;
+  models.service
+    .insertService(service)
     .then(([result]) => {
-      res.location(`/messages/${result.insertId}`).sendStatus(201);
+      res.location(`/services/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -13,8 +13,8 @@ const createMessage = (req, res) => {
     });
 };
 
-const getMessageByID = (req, res) => {
-  models.message
+const getServiceByID = (req, res) => {
+  models.service
     .findByPK(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -29,8 +29,8 @@ const getMessageByID = (req, res) => {
     });
 };
 
-const getAllMessages = (req, res) => {
-  models.message
+const getAllServices = (req, res) => {
+  models.service
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -41,13 +41,13 @@ const getAllMessages = (req, res) => {
     });
 };
 
-const updateMessage = (req, res) => {
-  const message = req.body;
-  const messageID = req.Message_ID;
-  message.id = parseInt(req.params.id, 10);
+const updateService = (req, res) => {
+  const service = req.body;
+  const serviceID = req.Service_ID;
+  service.id = parseInt(req.params.id, 10);
 
-  models.message
-    .update(message, messageID)
+  models.service
+    .update(service, serviceID)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -61,15 +61,15 @@ const updateMessage = (req, res) => {
     });
 };
 
-const deleteMessage = (req, res) => {
-  const messageID = req.params.id;
+const deleteService = (req, res) => {
+  const serviceID = req.params.id;
 
-  models.message
-    .deleteMessage(messageID)
+  models.service
+    .deleteService(serviceID)
     .then((result) => {
       if (result.affectedRows > 0) {
         console.info(
-          `Le message avec l'ID ${messageID} a été supprimée avec succès.`
+          `Le service avec l'ID ${serviceID} a été supprimée avec succès.`
         );
       }
       res.sendStatus(204);
@@ -81,9 +81,9 @@ const deleteMessage = (req, res) => {
 };
 
 module.exports = {
-  createMessage,
-  getMessageByID,
-  getAllMessages,
-  updateMessage,
-  deleteMessage,
+  createService,
+  getServiceByID,
+  getAllServices,
+  updateService,
+  deleteService,
 };

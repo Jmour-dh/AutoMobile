@@ -18,10 +18,12 @@ app.use(cors());
 const UserRouter = require("./routers/UserRouter");
 const MotoRouter = require("./routers/MotoRouter");
 const MessageRouter = require("./routers/MessageRouter");
+const ServiceRouter = require("./routers/ServiceRouter");
 
 app.use(UserRouter);
 app.use(MotoRouter);
 app.use(MessageRouter);
+app.use(ServiceRouter);
 
 // serve REACT APP
 const reactIndexFile = path.join(
