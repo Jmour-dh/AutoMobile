@@ -1,0 +1,111 @@
+.menuContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  animation: slideIn 0.3s ease-in-out forwards; /* Utilisez l'animation slideIn */
+
+  &.open {
+    transform: translateX(0);
+    animation: slideOut 0.3s ease-in-out forwards; /* Utilisez l'animation slideOut */
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .icon {
+    margin: 20px 10px;
+    padding: 20px;
+    margin-left: auto;
+
+    .close {
+      color: var(--white);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--secondary);
+      }
+    }
+  }
+
+  .nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7%;
+
+    ul {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+
+      li {
+        margin: 10px;
+        padding: 10px;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: var(--secondary);
+          transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+
+        &:hover::before {
+          width: 100%;
+          left: 0;
+        }
+
+        a {
+          padding: 10px;
+          font-size: large;
+          font-family: var(--font-family-roboto);
+          text-decoration: none;
+          color: var(--white);
+
+          &:hover {
+            opacity: 0.8;
+            color: var(--secondary);
+          }
+        }
+      }
+    }
+  }
+}
+
+.menuContainer.open {
+  transform: translateX(0);
+}

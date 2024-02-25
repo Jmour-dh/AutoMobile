@@ -1,0 +1,116 @@
+@use "../assets/styles/mixins" as mixin;
+
+.header {
+  background-color: var(--primary);
+  height: 100px;
+
+  .logo {
+    width: 250px !important;
+    height: 90%;
+    
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .menu {
+    width: 60%;
+    height: 100%;
+    align-items: end;
+
+    .list {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      li {
+        padding: 10px;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background-color: var(--secondary);
+          transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+
+        &:hover::before {
+          width: 100%;
+          left: 0;
+        }
+      }
+    }
+    @include mixin.md {
+      display: none;
+    }
+
+    @include mixin.sm {
+      display: none;
+    }
+
+    @include mixin.xs {
+      display: none;
+    }
+
+    @include mixin.lg-lt {
+      display: none;
+    }
+  }
+}
+
+.headerResp {
+  display: none !important;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @include mixin.md {
+    display: block !important;
+    margin: 10px;
+    color: var(--white);
+    height: 25px;
+    width: 25px;
+  }
+
+  @include mixin.lg {
+    display: block !important;
+    margin: 10px;
+    color: var(--white);
+    height: 25px;
+    width: 25px;
+  }
+
+  @include mixin.sm {
+    display: block !important;
+    margin: 10px;
+    color: var(--white);
+    height: 25px;
+    width: 25px;
+  }
+
+  @include mixin.xs {
+    display: block !important;
+    margin: 10px;
+    color: var(--white);
+    height: 25px;
+    width: 25px;
+  }
+
+  @include mixin.lg-lt {
+    display: block !important;
+    margin: 10px;
+    color: var(--white);
+    height: 25px;
+    width: 25px;
+  }
+}
