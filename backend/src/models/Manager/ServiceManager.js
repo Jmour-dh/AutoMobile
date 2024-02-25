@@ -40,6 +40,7 @@ class serviceManager extends AbstractManager {
       ]
     );
   }
+
   async deleteService(serviceID) {
     const query = `
       DELETE FROM ${this.table}

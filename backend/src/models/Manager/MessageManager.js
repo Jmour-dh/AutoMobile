@@ -7,9 +7,9 @@ class messageManager extends AbstractManager {
 
   async insertMessage(message) {
     const query = `
-  INSERT INTO ${this.table}
-    (FirstNameVisiter, LastNameVisiter, EmailVisiter, Objet, Message, DateOfMessage, User_ID, Moto_ID)
-  VALUES (?, ?, ?, ?, ?, IFNULL(?, CURRENT_TIMESTAMP), ?, ?)`;
+      INSERT INTO ${this.table}
+        (FirstNameVisiter, LastNameVisiter, EmailVisiter, Objet, Message, User_ID, Moto_ID)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     const values = [
       message.FirstNameVisiter,
@@ -17,7 +17,6 @@ class messageManager extends AbstractManager {
       message.EmailVisiter,
       message.Objet,
       message.Message,
-      message.DateOfMessage,
       message.User_ID,
       message.Moto_ID,
     ];
