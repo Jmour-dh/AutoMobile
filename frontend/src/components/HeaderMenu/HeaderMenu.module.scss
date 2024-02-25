@@ -8,8 +8,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
   animation: slideIn 0.3s ease-in-out forwards; /* Utilisez l'animation slideIn */
@@ -40,7 +39,7 @@
   .icon {
     margin: 20px 10px;
     padding: 20px;
-   margin-left: auto;
+    margin-left: auto;
 
     .close {
       color: var(--white);
@@ -53,12 +52,13 @@
   }
 
   .nav {
-    width: 400px;
-    height: 800px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 7%;
 
     ul {
       width: 100%;

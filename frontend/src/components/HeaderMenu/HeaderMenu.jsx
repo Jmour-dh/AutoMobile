@@ -3,6 +3,13 @@ import { NavLink } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import styles from "./HeaderMenu.module.scss";
 
+const navLinks = [
+  { to: "/occasion", text: "OCCASIONS" },
+  { to: "/service", text: "SERVICES" },
+  { to: "/about", text: "À PROPOS DE NOUS" },
+  { to: "/login", text: "MON ESPACE" },
+];
+
 function HeaderMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,18 +24,16 @@ function HeaderMenu() {
       <div>
         <nav className={styles.nav}>
           <ul>
-            <li>
-              <NavLink to="/occasion">OCCASIONS</NavLink>
-            </li>
-            <li>
-              <NavLink to="/service">SERVICES</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">À PROPOS DE NOUS</NavLink>
-            </li>
-            <li>
-              <NavLink to="/login">MON ESPACE</NavLink>
-            </li>
+            {navLinks.map(({ to, text }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                >
+                  {text}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
