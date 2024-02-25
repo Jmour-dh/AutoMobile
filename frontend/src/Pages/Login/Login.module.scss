@@ -1,0 +1,92 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.login {
+  background-image: url("../../assets/images/frontLogin.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+    min-height: 100%;
+
+    @include mixin.xl {
+      width: 35%;
+    }
+    @include mixin.lg-lt {
+      width: 40%;
+    }
+
+    @include mixin.lg {
+      width: 50%;
+    }
+
+    @include mixin.md {
+      width: 60%;
+    }
+
+    @include mixin.sm {
+      width: 50%;
+    }
+
+    @include mixin.xs {
+      width: 80%;
+    }
+
+    form {
+      width: 60%;
+      height: 70%;
+      font-family: var(--font-family-oprenSans);
+      background: var(--white);
+      box-shadow: var(--boxShadow2);
+      border-radius: 15px;
+
+      @include mixin.xs {
+        width: 80%;
+      }
+
+      h2 {
+        font-family: var(--font-family-roboto);
+        text-align: center;
+        color: var(--secondary);
+        font-style: italic;
+        text-decoration: underline;
+      }
+
+      label {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      input {
+        border: 1px solid;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+      }
+
+      p {
+        font-size: 0.8rem;
+        text-align: center;
+
+        a {
+          color: var(--secondary);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+}
