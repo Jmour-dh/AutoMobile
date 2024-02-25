@@ -4,15 +4,17 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-size: inherit;
-  font-weight: inherit;
   text-decoration: none;
   border: none;
   line-height: inherit;
   list-style: none;
 }
 
-::-webkit-scrollbar {
-  display: none;
+body {
+  width: 100%;
+  font-family: var(--font-family-openSans);
 }
 
+#root {
+  height: 100%;
+}
