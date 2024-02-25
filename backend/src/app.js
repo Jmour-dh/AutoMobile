@@ -19,11 +19,13 @@ const UserRouter = require("./routers/UserRouter");
 const MotoRouter = require("./routers/MotoRouter");
 const MessageRouter = require("./routers/MessageRouter");
 const ServiceRouter = require("./routers/ServiceRouter");
+const AvisRouter = require("./routers/AvisRouter");
 
 app.use(UserRouter);
 app.use(MotoRouter);
 app.use(MessageRouter);
 app.use(ServiceRouter);
+app.use(AvisRouter);
 
 // serve REACT APP
 const reactIndexFile = path.join(

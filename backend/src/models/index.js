@@ -57,6 +57,11 @@ const ServiceManager = require("./Manager/ServiceManager");
 models.service = new ServiceManager();
 models.service.setDatabase(pool);
 
+const AvisManager = require("./Manager/AvisManager");
+
+models.avis = new AvisManager();
+models.avis.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
