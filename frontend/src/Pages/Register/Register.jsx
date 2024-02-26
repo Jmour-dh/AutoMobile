@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import styles from "./Register.module.scss";
 import { IoEyeSharp } from "react-icons/io5";
 import { BsFillEyeSlashFill } from "react-icons/bs";
@@ -79,14 +80,18 @@ function Register() {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
+    watch,
   } = useForm({
     initialValues,
     resolver: yupResolver(validationSchema),
   });
 
-  const submit = handleSubmit(async (client) => {
+  const emailValue = watch("email");
+
+  const submit = handleSubmit(async (data) => {
     try {
       clearErrors();
+      await axios.post(`${hostname}/users/createUser`, data);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -163,7 +168,7 @@ function Register() {
                 )}
               </div>
               <VerifyEmail
-                email={email}
+                email={emailValue}
                 onVerification={handleEmailVerification}
               />
               {!emailVerified && <p>{emailVerificationMessage}</p>}
