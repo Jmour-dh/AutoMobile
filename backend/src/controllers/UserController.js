@@ -139,6 +139,7 @@ const logout = async (req, res) => {
 const verifyExistingEmail = async (req, res) => {
   try {
     const emailExists = await models.user.verifyExistingEmail(req.body.email);
+
     res.status(200).json({ conflict: emailExists });
 
     if (emailExists) {

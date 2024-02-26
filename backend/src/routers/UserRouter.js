@@ -20,7 +20,7 @@ router.post(
 );
 
 // Routes that don't require token verification
-router.get("/verifyEmail", userController.verifyExistingEmail);
+router.post("/verifyEmail", userController.verifyExistingEmail);
 router.get("/verifyPhone", userController.verifyExistingPhone);
 router.post("/login", userController.login, verifyPassword); // Login route
 

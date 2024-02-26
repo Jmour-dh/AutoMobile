@@ -86,7 +86,7 @@ function Register() {
     resolver: yupResolver(validationSchema),
   });
 
-  const emailValue = watch("email");
+  const email = watch("email");
 
   const submit = handleSubmit(async (data) => {
     try {
@@ -116,9 +116,12 @@ function Register() {
   };
 
   const handleEmailVerification = (isAvailable, message) => {
+    console.log("isAvailable :", isAvailable);
+    console.log("message :", message);
     setEmailVerified(isAvailable);
     setEmailVerificationMessage(message);
   };
+  
   return (
     <section className={styles.register}>
       <div className={styles.container}>
@@ -168,7 +171,7 @@ function Register() {
                 )}
               </div>
               <VerifyEmail
-                email={emailValue}
+                email={email}
                 onVerification={handleEmailVerification}
               />
               {!emailVerified && <p>{emailVerificationMessage}</p>}

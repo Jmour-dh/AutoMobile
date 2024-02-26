@@ -1,52 +1,53 @@
-import React, { useState, useEffect } from "react";
+// VerifyEmail.js
+
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { hostname } from "../hostname/hostname";
 
-function VerifyEmail({ email, onVerification }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+const VerifyEmail = ({ email, onVerification }) => {
+  const [verificationMessage, setVerificationMessage] = useState("");
 
-  useEffect(() => {
-    if (email && email.includes("@")) {
-      // Validation basique de l'email
-      verifyEmail(email);
-      console.log("email", email);
-    }
-  }, [email]);
-
-  const verifyEmail = async (email) => {
-    setIsLoading(true);
-    setErrorMessage("");
+  const verifyEmail = async (emailValue) => {
     try {
-      const response = await axios.get(`${hostname}/verifyEmail`, {
-        params: { email: encodeURIComponent(email) },
-      });
+      // Vérifiez si email existe avant d'utiliser trim
+      if (emailValue && emailValue.trim() !== "") {
+        const response = await axios.post(`${hostname}/verifyEmail`, {
+          email: emailValue,
+        });
 
-      const data = response.data;
+        const { conflict } = response.data;
 
-     if (data.conflict) {
-  onVerification(true, "Cet email est déjà utilisé.");
-} else {
-  onVerification(false, "Cet email n'existe pas.");
-}
+        if (conflict) {
+          setVerificationMessage("L'email existe déjà");
+        } else {
+          setVerificationMessage("");
+        }
 
+        // Utilisez la valeur mise à jour de verificationMessage
+        onVerification(conflict, conflict ? "L'email existe déjà." : "");
+      }
     } catch (error) {
-      console.error("Erreur lors de la vérification de l'email", error);
-      onVerification(
-        false,
-        "Erreur lors de la vérification. Veuillez réessayer."
-      );
-    } finally {
-      setIsLoading(false);
+      console.error("Erreur lors de la vérification de l'email :", error);
     }
   };
 
-  return (
-    <div>
-      {isLoading && <p>Vérification...</p>}
-      {errorMessage && <p>{errorMessage}</p>}
-    </div>
-  );
-}
+  useEffect(() => {
+    // Exécutez la vérification de l'email lorsque le composant monte
+    verifyEmail(email);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
+
+  useEffect(() => {
+    // Vérifiez la longueur de l'email avant de déclencher la vérification
+    if (email && email.length >= 1) {
+      verifyEmail(email);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
+
+  return <p style={{ color: "red" }}>{verificationMessage}</p>;
+};
 
 export default VerifyEmail;
