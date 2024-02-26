@@ -1,0 +1,114 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.register {
+  background-image: url("../../assets/images/fontRegister.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    min-height: 100%;
+    
+
+    @include mixin.lg-lt {
+      width: 50%;
+    }
+
+    form {
+      width: 100%;
+      height: 70%;
+      font-family: var(--font-family-openSans);
+      background: var(--white);
+      box-shadow: var(--boxShadow2);
+      border-radius: 15px;
+      
+      .content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 15px;
+
+        @include mixin.lg {
+          flex-direction: column;
+        }
+
+        @include mixin.md-lt {
+          flex-direction: column;
+        }
+
+        @include mixin.md {
+          flex-direction: column;
+        }
+
+        @include mixin.sm-lt {
+          flex-direction: column;
+        }
+
+        @include mixin.sm{
+          flex-direction: column;
+        }
+
+        @include mixin.xs {
+          flex-direction: column;
+        }
+
+        .contentInfo {
+          width: 90%;
+        }
+
+        .contentLogin {
+          width: 90%;
+        }
+
+
+      }
+
+      h2 {
+        font-family: var(--font-family-roboto);
+        text-align: center;
+        color: var(--secondary);
+        font-style: italic;
+        text-decoration: underline;
+      }
+
+      label {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      input {
+        border: 1px solid;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+      }
+
+      p {
+        font-size: 0.8rem;
+        text-align: center;
+
+        a {
+          color: var(--secondary);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

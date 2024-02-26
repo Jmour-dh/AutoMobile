@@ -18,9 +18,9 @@ function Login() {
         <form>
           <h2 className="m-10 p-10">Connexion</h2>
           <div className="d-flex flex-column m-10">
-            <label htmlFor="email">Votre e-mail:</label>
+            <label htmlFor="email">Email:</label>
             <input type="email" name="email" />
-            <label htmlFor="password">Votre mot de passe:</label>
+            <label htmlFor="password">Mot de passe:</label>
             <div className="passwordInputContainer">
               <input
                 type={showPassword ? "text" : "password"}
