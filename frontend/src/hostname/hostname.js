@@ -1,4 +1,4 @@
-const LOCALHOST_IP = "http://192.168.1.60";
+const LOCALHOST_IP = "http://10.39.200.236";
 
 let settings = {
   devRunMode: 100,

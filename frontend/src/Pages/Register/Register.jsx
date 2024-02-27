@@ -8,20 +8,21 @@ import styles from "./Register.module.scss";
 import { IoEyeSharp } from "react-icons/io5";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import VerifyEmail from "../../components/VerifyEmail";
+import VerifyPhone from "../../components/VerifyPhone";
 import { hostname } from "../../hostname/hostname";
 
 function Register() {
   const navigate = useNavigate();
   const validationSchema = yup.object({
-    email: yup
+    Email: yup
       .string()
-      .required("Il faut préciser votre email")
-      .email("L'email n'est pas valide")
+      .required("Il faut préciser votre Email")
+      .email("L'Email n'est pas valide")
       .matches(
         /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        "Format d'email invalide"
+        "Format d'Email invalide"
       ),
-    password: yup
+    Password: yup
       .string()
       .required("Il faut préciser votre mot de passe")
       .min(6, "Mot de passe trop court"),
@@ -29,10 +30,10 @@ function Register() {
       .string()
       .required("Vous devez confirmer votre mot de passe")
       .oneOf(
-        [yup.ref("password"), ""],
+        [yup.ref("Password"), ""],
         "Les mots de passe ne correspondent pas"
       ),
-    firstName: yup
+    FirstName: yup
       .string()
       .required("Le nom est requise")
       .matches(
@@ -41,7 +42,7 @@ function Register() {
       )
       .min(2, "Le nom doit comporter au moins 2 caractères")
       .max(30, "Le nom ne peut pas dépasser 30 caractères"),
-    lastName: yup
+    LastName: yup
       .string()
       .required("Le prénom est requise")
       .matches(
@@ -51,27 +52,27 @@ function Register() {
       .min(2, "Le prénom doit comporter au moins 2 caractères")
       .max(30, "Le prénom ne peut pas dépasser 30 caractères"),
 
-    phone: yup
+    Phone: yup
       .string()
-      .required("Le téléphone est requise")
+      .required("Le téléPhone est requise")
       .matches(
         /^[0-9]{10}$/,
-        "Le numéro de téléphone doit contenir exactement 10 chiffres"
+        "Le numéro de téléPhone doit contenir exactement 10 chiffres"
       ),
-    address: yup
+    Address: yup
       .string()
       .required("L'adresse est requise")
       .max(255, "L'adresse ne peut pas dépasser 255 caractères"),
   });
 
   const initialValues = {
-    email: "",
-    password: "",
+    Email: "",
+    Password: "",
     confirmPassword: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    address: "",
+    FirstName: "",
+    LastName: "",
+    Phone: "",
+    Address: "",
   };
 
   const {
@@ -86,24 +87,28 @@ function Register() {
     resolver: yupResolver(validationSchema),
   });
 
-  const email = watch("email");
+  const email = watch("Email");
+  const phone = watch("Phone");
 
   const submit = handleSubmit(async (data) => {
     try {
       clearErrors();
-      await axios.post(`${hostname}/users/createUser`, data);
-      navigate("/");
+      const response = await axios.post(`${hostname}/users/createUser`, data);
+      console.log('Réponse du serveur:', response.data);
+      navigate("/login");
     } catch (error) {
-      console.error(error);
+      console.error('Erreur côté frontend:', error);
       setError("generic", { type: "generic", message: error.message });
     }
   });
-
+  
   // State pour gérer la visibilité du mot de passe
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConf, setShowPasswordConf] = useState(false);
   const [emailVerified, setEmailVerified] = useState(false);
   const [emailVerificationMessage, setEmailVerificationMessage] = useState("");
+  const [phoneVerified, setPhoneVerified] = useState(false);
+  const [phoneVerificationMessage, setPhoneVerificationMessage] = useState("");
 
   // Fonction pour basculer la visibilité du mot de passe
   const togglePasswordVisibility = () => {
@@ -116,12 +121,15 @@ function Register() {
   };
 
   const handleEmailVerification = (isAvailable, message) => {
-    console.log("isAvailable :", isAvailable);
-    console.log("message :", message);
     setEmailVerified(isAvailable);
     setEmailVerificationMessage(message);
   };
-  
+
+  const handlePhoneVerification = (isAvailable, message) => {
+    setPhoneVerified(isAvailable);
+    setPhoneVerificationMessage(message);
+  };
+
   return (
     <section className={styles.register}>
       <div className={styles.container}>
@@ -130,44 +138,48 @@ function Register() {
           <div className={styles.content}>
             <div className={styles.contentInfo}>
               <div className="d-flex flex-column mx-10">
-                <label htmlFor="firstName"> Nom:</label>
+                <label htmlFor="FirstName"> Nom:</label>
                 <input
                   type="text"
-                  name="firstName"
-                  {...register("firstName")}
+                  name="FirstName"
+                  {...register("FirstName")}
                 />
-                {errors.firstName && (
-                  <p className="form-error">{errors.firstName.message}</p>
+                {errors.FirstName && (
+                  <p className="form-error">{errors.FirstName.message}</p>
                 )}
               </div>
               <div className="d-flex flex-column mx-10">
-                <label htmlFor="lastName"> Votre Prénom:</label>
-                <input type="text" name="lastName" {...register("lastName")} />
-                {errors.lastName && (
-                  <p className="form-error">{errors.lastName.message}</p>
+                <label htmlFor="LastName"> Votre Prénom:</label>
+                <input type="text" name="LastName" {...register("LastName")} />
+                {errors.LastName && (
+                  <p className="form-error">{errors.LastName.message}</p>
                 )}
               </div>
               <div className="d-flex flex-column  mx-10">
-                <label htmlFor="address"> Adresse:</label>
-                <input type="text" name="address" {...register("address")} />
-                {errors.address && (
-                  <p className="form-error">{errors.address.message}</p>
+                <label htmlFor="Address"> Adresse:</label>
+                <input type="text" name="Address" {...register("Address")} />
+                {errors.Address && (
+                  <p className="form-error">{errors.Address.message}</p>
                 )}
               </div>
               <div className="d-flex flex-column  mx-10">
-                <label htmlFor="phone"> Téléphone:</label>
-                <input type="text" name="phone" {...register("phone")} />
-                {errors.phone && (
-                  <p className="form-error">{errors.phone.message}</p>
+                <label htmlFor="Phone"> TéléPhone:</label>
+                <input type="text" name="Phone" {...register("Phone")} />
+                {errors.Phone && (
+                  <p className="form-error">{errors.Phone.message}</p>
                 )}
               </div>
+              <VerifyPhone
+                phone={phone}
+                onVerification={handlePhoneVerification}
+              />
             </div>
             <div className={styles.contentLogin}>
               <div className="d-flex flex-column mx-10">
-                <label htmlFor="email"> Email:</label>
-                <input type="email" name="email" {...register("email")} />
-                {errors.email && (
-                  <p className="form-error">{errors.email.message}</p>
+                <label htmlFor="Email"> Email:</label>
+                <input type="email" name="Email" {...register("Email")} />
+                {errors.Email && (
+                  <p className="form-error">{errors.Email.message}</p>
                 )}
               </div>
               <VerifyEmail
@@ -176,12 +188,12 @@ function Register() {
               />
               {!emailVerified && <p>{emailVerificationMessage}</p>}
               <div className="d-flex flex-column  mx-10">
-                <label htmlFor="password"> Mot de passe:</label>
+                <label htmlFor="Password"> Mot de passe:</label>
                 <div className="passwordInputContainer">
                   <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    {...register("password")}
+                    type={showPassword ? "text" : "Password"}
+                    name="Password"
+                    {...register("Password")}
                   />
                   {showPassword ? (
                     <BsFillEyeSlashFill onClick={togglePasswordVisibility} />
@@ -189,8 +201,8 @@ function Register() {
                     <IoEyeSharp onClick={togglePasswordVisibility} />
                   )}
                 </div>
-                {errors.password && (
-                  <p className="form-error">{errors.password.message}</p>
+                {errors.Password && (
+                  <p className="form-error">{errors.Password.message}</p>
                 )}
               </div>
               <div className="d-flex flex-column  mx-10 ">
@@ -199,7 +211,7 @@ function Register() {
                 </label>
                 <div className="passwordInputContainer">
                   <input
-                    type={showPasswordConf ? "text" : "password"}
+                    type={showPasswordConf ? "text" : "Password"}
                     name="confirmPassword"
                     {...register("confirmPassword")}
                   />

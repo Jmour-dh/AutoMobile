@@ -139,14 +139,7 @@ const logout = async (req, res) => {
 const verifyExistingEmail = async (req, res) => {
   try {
     const emailExists = await models.user.verifyExistingEmail(req.body.email);
-
     res.status(200).json({ conflict: emailExists });
-
-    if (emailExists) {
-      console.info("L'email existe.");
-    } else {
-      console.info("L'email n'existe pas.");
-    }
   } catch (err) {
     console.error(
       "Erreur lors de la vérification de l'utilisateur existant :",
@@ -160,12 +153,6 @@ const verifyExistingPhone = async (req, res) => {
   try {
     const phoneExists = await models.user.verifyExistingPhone(req.body.phone);
     res.status(200).json({ conflict: phoneExists });
-
-    if (phoneExists) {
-      console.info("phone existe.");
-    } else {
-      console.info("phone n'existe pas.");
-    }
   } catch (err) {
     console.error(
       "Erreur lors de la vérification de l'utilisateur existant :",
