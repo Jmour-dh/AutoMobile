@@ -27,6 +27,7 @@ function HeaderMenu() {
             {navLinks.map(({ to, text }) => (
               <li key={to}>
                 <NavLink
+                  onClick={closeMenu}
                   to={to}
                   className={({ isActive }) => (isActive ? "Linkactive" : "")}
                 >

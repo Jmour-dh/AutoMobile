@@ -56,10 +56,7 @@ function Login() {
     try {
       clearErrors();
       const response = await axios.post(`${hostname}/login`, credentials);
-  
       const { authToken, user } = response.data;
-      localStorage.setItem("roleId", user.Role_ID);
-  
       if (!authToken || !user) {
         setError("generic", {
           type: "generic",
@@ -67,12 +64,24 @@ function Login() {
         });
         return;
       }
-  
-      auth.login(authToken, user.User_ID);
-      navigate("/");
+
+      auth.login(authToken, user.User_ID, user.Role_ID);
+
+      // Logique conditionnelle pour la redirection en fonction du roleId
+      switch (user.Role_ID) {
+        case 1:
+          navigate("/admin");
+          break;
+        case 2:
+          navigate("/user");
+          break;
+        default:
+          navigate("/personal");
+          break;
+      }
     } catch (error) {
       console.error(error);
-  
+
       if (error.response && error.response.status === 401) {
         setError("generic", {
           type: "generic",
@@ -86,7 +95,7 @@ function Login() {
       }
     }
   });
-  
+
   return (
     <section className={styles.login}>
       <div className={styles.container}>

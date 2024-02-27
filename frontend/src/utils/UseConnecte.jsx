@@ -21,9 +21,11 @@ export function AuthProvider({ children }) {
     setIsLoggedIn(!!token);
   }, []);
 
-  const login = (token, userId) => {
+  const login = (token, userId, roleId) => {
     localStorage.setItem("userToken", token);
     localStorage.setItem("userId", userId);
+    localStorage.setItem("roleId", roleId);
+
     setIsLoggedIn(true);
   };
 
