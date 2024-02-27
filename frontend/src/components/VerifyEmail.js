@@ -31,11 +31,12 @@ const VerifyEmail = ({ email, onVerification }) => {
 
   useEffect(() => {
     // Exécutez la vérification de l'email lorsque le composant monte
+    console.log("Vérification de l'email en cours...");
     verifyEmail(email);
-
+  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
-
+  
   useEffect(() => {
     // Vérifiez la longueur de l'email avant de déclencher la vérification
     if (email && email.length >= 1) {
