@@ -14,6 +14,8 @@ const navLinks = [
 
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const token = localStorage.getItem("userToken");
+  const roleId = localStorage.getItem("roleId");
 
   // Fonction pour basculer la visibilité du menu
   const toggleMenu = () => {
@@ -32,9 +34,17 @@ function Header() {
           <ul className={styles.list}>
             {navLinks.map(({ to, text }) => (
               <li key={to}>
-                <NavLink to={to} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
-                  {text}
-                </NavLink>
+                {to === "/login" && token ? (
+                  // Si l'utilisateur est connecté, redirige vers le profil en fonction du roleId
+                  <NavLink to={roleId === "1" ? "/admin" : roleId === "2" ? "/user" : "/personal"} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
+                    {text}
+                  </NavLink>
+                ) : (
+                  // Sinon, utilise le NavLink normal
+                  <NavLink to={to} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
+                    {text}
+                  </NavLink>
+                )}
               </li>
             ))}
           </ul>

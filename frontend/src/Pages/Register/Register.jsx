@@ -92,16 +92,26 @@ function Register() {
 
   const submit = handleSubmit(async (data) => {
     try {
-      clearErrors();
-      const response = await axios.post(`${hostname}/users/createUser`, data);
-      console.log('Réponse du serveur:', response.data);
-      navigate("/login");
+      // Effectuez vos vérifications ici
+      if (!emailVerified && !phoneVerified) {
+        clearErrors();
+        // Continuez avec la soumission du formulaire
+        const response = await axios.post(`${hostname}/users/createUser`, data);
+        console.log("Réponse du serveur:", response.data);
+        navigate("/login");
+      } else {
+        alert(
+          (emailVerificationMessage || "") +
+            (phoneVerificationMessage ? "\n" + phoneVerificationMessage : "") ||
+            "Vérification requise."
+        );
+      }
     } catch (error) {
-      console.error('Erreur côté frontend:', error);
+      console.error("Erreur côté frontend:", error);
       setError("generic", { type: "generic", message: error.message });
     }
   });
-  
+
   // State pour gérer la visibilité du mot de passe
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConf, setShowPasswordConf] = useState(false);
@@ -173,6 +183,7 @@ function Register() {
                 phone={phone}
                 onVerification={handlePhoneVerification}
               />
+              {!phoneVerified && <p>{phoneVerificationMessage}</p>}
             </div>
             <div className={styles.contentLogin}>
               <div className="d-flex flex-column mx-10">

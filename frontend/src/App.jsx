@@ -1,17 +1,21 @@
 import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Header from './Header/Header'
-import Footer from './Footer/Footer'
+import { AuthProvider } from "./utils/UseConnecte";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
 
 function App() {
   return (
     <div>
-    <Header />
+      <AuthProvider>
+        <Header />
         <Suspense>
           <Outlet />
         </Suspense>
-        <Footer /></div>
-  )
+        <Footer />
+      </AuthProvider>
+    </div>
+  );
 }
 
-export default App
+export default App;
