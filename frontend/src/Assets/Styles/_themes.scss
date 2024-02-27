@@ -9,6 +9,11 @@ a {
   font-weight: bold;
 }
 
+.Linkactive1 {
+  color: var(--primary) !important;
+  font-weight: bold;
+}
+
 .form-error {
   margin: 0;
   color: var(--error);
@@ -21,7 +26,7 @@ a {
   margin-bottom: 5px;
   svg {
     position: absolute;
-    right: 10px; 
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
   }
