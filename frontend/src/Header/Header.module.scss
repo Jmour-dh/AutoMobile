@@ -3,7 +3,8 @@
 .header {
   background-color: var(--primary);
   height: 100px;
-
+  display: flex;
+  justify-content: space-around;
   .logo {
     width: 250px !important;
     height: 90%;
