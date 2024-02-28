@@ -62,6 +62,11 @@ const AvisManager = require("./Manager/AvisManager");
 models.avis = new AvisManager();
 models.avis.setDatabase(pool);
 
+const ContactManager = require("./Manager/ContactManager");
+
+models.contact = new ContactManager();
+models.contact.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
