@@ -74,7 +74,7 @@ function Login() {
       // Logique conditionnelle pour la redirection en fonction du roleId
       switch (user.Role_ID) {
         case 1:
-          navigate("/admin");
+          navigate("/admin/messages/list");
           break;
         case 2:
           navigate("/user");

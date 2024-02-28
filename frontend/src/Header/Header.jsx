@@ -36,7 +36,7 @@ function Header() {
               <li key={to}>
                 {to === "/login" && token ? (
                   // Si l'utilisateur est connecté, redirige vers le profil en fonction du roleId
-                  <NavLink to={roleId === "1" ? "/admin" : roleId === "2" ? "/user" : "/personal"} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
+                  <NavLink to={roleId === "1" ? "/admin/messages/list" : roleId === "2" ? "/user" : "/personal"} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
                     {text}
                   </NavLink>
                 ) : (
