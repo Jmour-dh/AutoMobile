@@ -8,10 +8,11 @@ class motoManager extends AbstractManager {
   async insertMoto(moto) {
     const query = `
       INSERT INTO ${this.table}
-      (Modele, Marque, CreationDate, Year, Origin, FirstHand, OdometerMileage, Energy, Gearbox, Color, NumberOfPlaces, FiscalPower, Powers,Price, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?) `;
+      (Title,Modele, Marque, CreationDate, Year, Origin, FirstHand, OdometerMileage, Energy, Gearbox, Color, NumberOfPlaces, FiscalPower, Powers,Price, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6)
+      VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?) `;
 
     const values = [
+      moto.Title,
       moto.Modele,
       moto.Marque,
       moto.CreationDate,
@@ -47,9 +48,10 @@ class motoManager extends AbstractManager {
   async update(moto) {
     return this.database.query(
       `UPDATE ${this.table} SET 
-      Modele = ?, Marque = ?, CreationDate = ?, Year = ?, Origin = ?, FirstHand = ?, OdometerMileage = ?, Energy = ?, Gearbox = ?, Color = ?, NumberOfPlaces = ?, FiscalPower = ?, Powers = ?,Price = ?, Photo1 = ?, Photo2 = ?, Photo3 = ?, Photo4 = ?, Photo5 = ?, Photo6 = ?
+      Title = ?,Modele = ?, Marque = ?, CreationDate = ?, Year = ?, Origin = ?, FirstHand = ?, OdometerMileage = ?, Energy = ?, Gearbox = ?, Color = ?, NumberOfPlaces = ?, FiscalPower = ?, Powers = ?,Price = ?, Photo1 = ?, Photo2 = ?, Photo3 = ?, Photo4 = ?, Photo5 = ?, Photo6 = ?
       WHERE Moto_ID = ?`,
       [
+        moto.Title,
         moto.Modele,
         moto.Marque,
         moto.CreationDate,

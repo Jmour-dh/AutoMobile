@@ -1,19 +1,17 @@
 const fs = require("node:fs");
 const path = require("node:path");
-
-// create express app
-
 const express = require("express");
 
 const app = express();
-
-// use some application-level middlewares
-
-app.use(express.json());
-
 const cors = require("cors");
 
-app.use(cors());
+app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const UserRouter = require("./routers/UserRouter");
 const MotoRouter = require("./routers/MotoRouter");
@@ -27,7 +25,7 @@ app.use(MessageRouter);
 app.use(ServiceRouter);
 app.use(AvisRouter);
 
-// serve REACT APP
+// Serve REACT APP
 const reactIndexFile = path.join(
   __dirname,
   "..",
@@ -38,17 +36,13 @@ const reactIndexFile = path.join(
 );
 
 if (fs.existsSync(reactIndexFile)) {
-  // serve REACT resources
-
+  // Serve REACT resources
   app.use(express.static(path.join(__dirname, "..", "..", "frontend", "dist")));
 
-  // redirect all requests to the REACT index file
-
+  // Redirect all requests to the REACT index file
   app.get("*", (req, res) => {
     res.sendFile(reactIndexFile);
   });
 }
-
-// ready to export
 
 module.exports = app;
