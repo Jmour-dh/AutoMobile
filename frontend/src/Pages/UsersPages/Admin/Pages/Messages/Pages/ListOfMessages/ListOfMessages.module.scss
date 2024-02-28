@@ -1,4 +1,3 @@
-
 .table {
   margin-top: 20px;
 
@@ -12,7 +11,8 @@
     margin-top: 10px;
     border: var(--table-border);
 
-    th, td {
+    th,
+    td {
       padding: 12px;
       border: var(--table-border);
       text-align: center;
@@ -28,7 +28,7 @@
     }
 
     tr:hover {
-      background-color:var(--table-hover-color);
+      background-color: var(--table-hover-color);
     }
 
     .action {

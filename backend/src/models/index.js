@@ -11,6 +11,7 @@ const pool = mysql.createPool({
   user: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
+  multipleStatements: true, // Activez cette option pour prendre en charge plusieurs déclarations dans une seule requête (nécessaire pour les transactions)
 });
 // try a connection
 

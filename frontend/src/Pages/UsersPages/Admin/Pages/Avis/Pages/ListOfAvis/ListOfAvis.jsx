@@ -4,9 +4,12 @@ import { BsStarFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { hostname } from "../../../../../../../hostname/hostname";
+import Pagination from "../../../../../../../components/Pagination/Pagination";
 
 function ListOfAvis() {
   const [avis, setAvis] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
 
   useEffect(() => {
     const fetchAvis = async () => {
@@ -29,7 +32,7 @@ function ListOfAvis() {
     };
 
     fetchAvis();
-  }, []);
+  });
 
   const processAvis = async (token, avis) => {
     const processedAvis = await Promise.all(
@@ -68,7 +71,10 @@ function ListOfAvis() {
       }
 
       if (avisItem.Service_ID !== null) {
-        updatedAvis.ServiceNom = await getServiceNom(token, avisItem.Service_ID);
+        updatedAvis.ServiceNom = await getServiceNom(
+          token,
+          avisItem.Service_ID
+        );
       }
 
       return updatedAvis;
@@ -128,6 +134,15 @@ function ListOfAvis() {
     }
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = avis.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(avis.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className={styles.table}>
       <table>
@@ -144,9 +159,18 @@ function ListOfAvis() {
           </tr>
         </thead>
         <tbody>
-          {avis.map((avisItem) => (
+          {currentItems.map((avisItem) => (
             <tr key={avisItem.Avis_ID}>
-              <td>{new Date(avisItem.DateOfAvis).toLocaleString()}</td>
+              <td>
+                {new Date(avisItem.DateOfAvis).toLocaleString("fr-FR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
+              </td>
               <td>{avisItem.FirstNameVisiter}</td>
               <td>{avisItem.LastNameVisiter}</td>
               <td>{avisItem.EmailVisiter}</td>
@@ -167,6 +191,11 @@ function ListOfAvis() {
           ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

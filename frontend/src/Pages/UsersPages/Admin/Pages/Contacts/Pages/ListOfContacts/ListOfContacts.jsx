@@ -3,10 +3,13 @@ import styles from "./ListOfContacts.module.scss";
 import axios from "axios";
 import { hostname } from "../../../../../../../hostname/hostname";
 import { MdDelete } from "react-icons/md";
+import Pagination from "../../../../../../../components/Pagination/Pagination";
 
 function ListOfContacts() {
   const [contacts, setContacts] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
 
   useEffect(() => {
     const processContact = async (token, contact) => {
@@ -35,7 +38,10 @@ function ListOfContacts() {
 
         return updatedContact;
       } catch (error) {
-        console.error("Erreur lors de la récupération des informations :", error);
+        console.error(
+          "Erreur lors de la récupération des informations :",
+          error
+        );
         return contact;
       }
     };
@@ -110,6 +116,15 @@ function ListOfContacts() {
     }
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = contacts.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(contacts.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className={styles.table}>
       <table>
@@ -125,9 +140,18 @@ function ListOfContacts() {
           </tr>
         </thead>
         <tbody>
-          {contacts.map((contact) => (
+          {currentItems.map((contact) => (
             <tr key={contact.Contact_ID}>
-              <td>{new Date(contact.DateOfContact).toLocaleString()}</td>
+              <td>
+                {new Date(contact.DateOfContact).toLocaleString("fr-FR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
+              </td>
               <td>
                 {contact.User_ID !== null
                   ? contact.FirstNameVisiter
@@ -155,6 +179,11 @@ function ListOfContacts() {
           ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

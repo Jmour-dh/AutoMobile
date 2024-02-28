@@ -3,10 +3,13 @@ import styles from "./ListOfMessages.module.scss";
 import axios from "axios";
 import { hostname } from "../../../../../../../hostname/hostname";
 import { MdDelete } from "react-icons/md";
+import Pagination from "../../../../../../../components/Pagination/Pagination";
 
 function ListOfMessages() {
   const [messages, setMessages] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
 
   useEffect(() => {
     const processMessage = async (token, message) => {
@@ -40,7 +43,10 @@ function ListOfMessages() {
 
         return updatedMessage;
       } catch (error) {
-        console.error("Erreur lors de la récupération des informations :", error);
+        console.error(
+          "Erreur lors de la récupération des informations :",
+          error
+        );
         return message;
       }
     };
@@ -122,13 +128,22 @@ function ListOfMessages() {
       });
 
       setMessages((prevMessages) =>
-        prevMessages.filter((message) => message.message_ID !== messageId)
+        prevMessages.filter((message) => message.Message_ID !== messageId)
       );
 
       setRefresh((prevRefresh) => !prevRefresh);
     } catch (error) {
       console.error("Erreur lors de la suppression de message :", error);
     }
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = messages.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(messages.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -147,9 +162,18 @@ function ListOfMessages() {
           </tr>
         </thead>
         <tbody>
-          {messages.map((message) => (
+          {currentItems.map((message) => (
             <tr key={message.Message_ID}>
-              <td>{new Date(message.DateOfMessage).toLocaleString()}</td>
+              <td>
+                {new Date(message.DateOfMessage).toLocaleString("fr-FR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
+              </td>
               <td>
                 {message.User_ID !== null
                   ? message.FirstNameVisiter
@@ -178,6 +202,11 @@ function ListOfMessages() {
           ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

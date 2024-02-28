@@ -66,6 +66,16 @@ class userManager extends AbstractManager {
     );
   }
 
+  async delete(userID) {
+    const query = `
+      DELETE FROM ${this.table}
+      WHERE User_ID = ?`;
+
+    const values = [userID];
+
+    return this.database.query(query, values);
+  }
+
   login(user) {
     return this.database.query(`SELECT * FROM  ${this.table} WHERE Email = ?`, [
       user.Email,
