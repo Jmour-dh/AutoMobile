@@ -2,12 +2,49 @@ import React, { useState, useEffect } from "react";
 import styles from "./ListOfMessages.module.scss";
 import axios from "axios";
 import { hostname } from "../../../../../../../hostname/hostname";
+import { MdDelete } from "react-icons/md";
 
 function ListOfMessages() {
   const [messages, setMessages] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
+    const processMessage = async (token, message) => {
+      try {
+        const updatedMessage = {
+          ...message,
+          FirstNameVisiter: "",
+          LastNameVisiter: "",
+          EmailVisiter: "",
+          MotoTitle: "",
+        };
+
+        if (message.User_ID !== null) {
+          const user = await getUserInfo(token, message.User_ID);
+          Object.assign(updatedMessage, {
+            FirstNameVisiter: user.FirstName || "",
+            LastNameVisiter: user.LastName || "",
+            EmailVisiter: user.Email || "",
+          });
+        } else {
+          Object.assign(updatedMessage, {
+            FirstNameVisiter: message.FirstNameVisiter || "",
+            LastNameVisiter: message.LastNameVisiter || "",
+            EmailVisiter: message.EmailVisiter || "",
+          });
+        }
+
+        if (message.Moto_ID !== null) {
+          updatedMessage.MotoTitle = await getMotoTitle(token, message.Moto_ID);
+        }
+
+        return updatedMessage;
+      } catch (error) {
+        console.error("Erreur lors de la récupération des informations :", error);
+        return message;
+      }
+    };
+
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem("userToken");
@@ -38,45 +75,6 @@ function ListOfMessages() {
 
     fetchMessages();
   }, [refresh]);
-
-  const processMessage = async (token, message) => {
-    try {
-      const updatedMessage = {
-        ...message,
-        FirstNameVisiter: "",
-        LastNameVisiter: "",
-        EmailVisiter: "",
-        MotoTitle: "",
-      };
-
-      if (message.User_ID !== null) {
-        const user = await getUserInfo(token, message.User_ID);
-        Object.assign(updatedMessage, {
-          FirstNameVisiter: user.FirstName || "",
-          LastNameVisiter: user.LastName || "",
-          EmailVisiter: user.Email || "",
-        });
-      } else {
-        Object.assign(updatedMessage, {
-          FirstNameVisiter: message.FirstNameVisiter || "",
-          LastNameVisiter: message.LastNameVisiter || "",
-          EmailVisiter: message.EmailVisiter || "",
-        });
-      }
-
-      if (message.Moto_ID !== null) {
-        updatedMessage.MotoTitle = await getMotoTitle(token, message.Moto_ID);
-      }
-
-      return updatedMessage;
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des informations :",
-        error
-      );
-      return message;
-    }
-  };
 
   const getUserInfo = async (token, userId) => {
     try {
@@ -152,19 +150,29 @@ function ListOfMessages() {
           {messages.map((message) => (
             <tr key={message.Message_ID}>
               <td>{new Date(message.DateOfMessage).toLocaleString()}</td>
-              <td>{message.User_ID !== null ? message.FirstNameVisiter : message.FirstNameVisiter}</td>
-              <td>{message.User_ID !== null ? message.LastNameVisiter : message.LastNameVisiter}</td>
-              <td>{message.User_ID !== null ? message.EmailVisiter : message.EmailVisiter}</td>
+              <td>
+                {message.User_ID !== null
+                  ? message.FirstNameVisiter
+                  : message.FirstNameVisiter}
+              </td>
+              <td>
+                {message.User_ID !== null
+                  ? message.LastNameVisiter
+                  : message.LastNameVisiter}
+              </td>
+              <td>
+                {message.User_ID !== null
+                  ? message.EmailVisiter
+                  : message.EmailVisiter}
+              </td>
               <td>{message.MotoTitle}</td>
               <td>{message.Objet}</td>
               <td>{message.Message}</td>
               <td className={styles.action}>
-                <button
+                <MdDelete
                   onClick={() => handleDelete(message.Message_ID)}
-                  className="btn1 btn-danger"
-                >
-                  Supprimer
-                </button>
+                  style={{ color: "red" }}
+                />
               </td>
             </tr>
           ))}
