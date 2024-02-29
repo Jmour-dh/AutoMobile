@@ -1,15 +1,15 @@
 import React, { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import styles from "./Services.module.scss"
+import styles from "./Services.module.scss";
 import ServiceNav from "./Components/ServiceNav/ServiceNav";
 
 function Services() {
   const { key } = useLocation();
   return (
     <div className={styles.container}>
-      <h4>Gestion des motos</h4>
+      <h4>Gestion des services</h4>
       <div>
-        <ServiceNav/>
+        <ServiceNav />
         <div>
           <Suspense>
             <Outlet key={key} />
@@ -20,4 +20,4 @@ function Services() {
   );
 }
 
-export default Services
+export default Services;

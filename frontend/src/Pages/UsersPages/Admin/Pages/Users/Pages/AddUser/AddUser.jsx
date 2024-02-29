@@ -139,6 +139,11 @@ function AddUser() {
     setPhoneVerified(isAvailable);
     setPhoneVerificationMessage(message);
   };
+
+  const handleCancelClick = () => {
+    navigate("/admin/users/list");
+  };
+
   return (
     <section className={styles.container}>
       <form onSubmit={submit}>
@@ -227,8 +232,11 @@ function AddUser() {
               <p className="form-error">{errors.generic.message}</p>
             </div>
           )}
-          <div className="d-flex flex-column  justify-content-center align-items-center">
-            <button className="bn5 m-5" disabled={isSubmitting}>
+          <div className="d-flex  justify-content-center align-items-center">
+            <button className="bn53" onClick={handleCancelClick}>
+              Annuler
+            </button>
+            <button className="bn632-hover bn22 m-5" disabled={isSubmitting}>
               Valider
             </button>
           </div>

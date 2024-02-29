@@ -20,8 +20,6 @@ function ListOfPersonals() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("Réponse de l'API :", response.data);
-
         // Tri du tableau par date de création du plus récent au plus ancien
         const sortedPersonals = response.data
           .filter((user) => user.Role_ID === 3)

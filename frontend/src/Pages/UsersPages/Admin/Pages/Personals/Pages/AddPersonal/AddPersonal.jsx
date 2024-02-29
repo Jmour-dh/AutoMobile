@@ -143,6 +143,10 @@ function AddPersonal() {
     setPhoneVerificationMessage(message);
   };
 
+  const handleCancelClick = () => {
+    navigate("/admin/personals/list");
+  };
+
   return (
     <section className={styles.container}>
       <form onSubmit={submit}>
@@ -155,7 +159,7 @@ function AddPersonal() {
             )}
           </div>
           <div className="d-flex flex-column mx-10">
-            <label htmlFor="LastName"> Votre Prénom:</label>
+            <label htmlFor="LastName">Prénom:</label>
             <input type="text" name="LastName" {...register("LastName")} />
             {errors.LastName && (
               <p className="form-error">{errors.LastName.message}</p>
@@ -231,8 +235,11 @@ function AddPersonal() {
               <p className="form-error">{errors.generic.message}</p>
             </div>
           )}
-          <div className="d-flex flex-column  justify-content-center align-items-center">
-            <button className="bn5 m-5" disabled={isSubmitting}>
+          <div className="d-flex  justify-content-center align-items-center">
+            <button className="bn53" onClick={handleCancelClick}>
+              Annuler
+            </button>
+            <button className="bn632-hover bn22 m-5" disabled={isSubmitting}>
               Valider
             </button>
           </div>
