@@ -2,6 +2,10 @@ const models = require("../models");
 
 const createService = (req, res) => {
   const service = req.body;
+  if (req.file) {
+    service.ImageUrl = req.file.filename;
+  }
+
   models.service
     .insertService(service)
     .then(([result]) => {
