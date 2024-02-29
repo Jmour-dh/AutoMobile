@@ -20,10 +20,16 @@ function ListOfUsers() {
       })
       .then((response) => {
         console.log("Réponse de l'API :", response.data);
-        setUsers(response.data);
+
+        // Tri du tableau par date de création du plus récent au plus ancien
+        const sortedPersonals = response.data
+          .filter((user) => user.Role_ID === 2)
+          .sort((a, b) => new Date(b.CreatedAt) - new Date(a.CreatedAt));
+
+        setUsers(sortedPersonals);
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des users :", error);
+        console.error("Erreur lors de la récupération des utilisateurs :", error);
       });
   }, []);
 
