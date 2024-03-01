@@ -64,18 +64,17 @@ function AddService() {
   const submit = handleSubmit(async (data) => {
     try {
       clearErrors();
-
+  
       const formData = new FormData();
       formData.append("Nom", data.Nom);
       formData.append("Description", data.Description);
       formData.append("Price", data.Price);
-
-      for (const file of selectedImages) {
-        formData.append("ImageUrl", file);
-      }
-
+  
+      // Ajoutez seulement la première image du tableau, car nous permettons à l'utilisateur de sélectionner une seule image
+      formData.append("ImageUrl", selectedImages[0]);
+  
       const token = localStorage.getItem("userToken");
-
+  
       const response = await axios.post(`${hostname}/services`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -83,10 +82,10 @@ function AddService() {
         },
         withCredentials: true,
       });
-
+  
       // Mettez à jour le state avec le chemin de l'image retourné par le serveur
-      setSelectedImages([...selectedImages, response.data.ImageUrl]);
-
+      setSelectedImages([response.data.ImageUrl]);
+  
       console.log("Réponse du serveur:", response.data);
       navigate("/admin/services/list");
     } catch (error) {
@@ -100,9 +99,10 @@ function AddService() {
   };
 
   const handleImageChange = (event) => {
-    const files = event.target.files;
-    console.log(files); // Assurez-vous que les fichiers sont corrects
-    setSelectedImages([...selectedImages, ...files]);
+    const file = event.target.files[0]; // Prenez uniquement le premier fichier sélectionné
+    console.log(file); // Assurez-vous que le fichier est correct
+  
+    setSelectedImages([file]); // Mettez à jour le state avec le nouveau fichier
   };
   return (
     <section className={styles.container}>

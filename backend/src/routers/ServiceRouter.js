@@ -25,7 +25,11 @@ router.post(
 );
 router.get("/services/:id", serviceController.getServiceByID);
 router.get("/services", serviceController.getAllServices);
-router.put("/services/:id", serviceController.updateService);
+router.put(
+  "/services/:id",
+  upload.single("ImageUrl"),
+  serviceController.updateService
+);
 router.delete("/services/:id", serviceController.deleteService);
 
 module.exports = router;

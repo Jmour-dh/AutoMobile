@@ -10,8 +10,6 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",  // Ajoutez cette ligne
-    allowedHeaders: "Content-Type, Authorization", // Ajoutez cette ligne
   })
 );
 app.use("/upload", express.static(path.join(__dirname, "../assets/upload")));
