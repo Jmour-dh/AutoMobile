@@ -12,6 +12,7 @@ app.use(
     credentials: true,
   })
 );
+app.use("/upload", express.static(path.join(__dirname, "./assets/upload")));
 
 const UserRouter = require("./routers/UserRouter");
 const MotoRouter = require("./routers/MotoRouter");
@@ -26,6 +27,8 @@ app.use(MessageRouter);
 app.use(ServiceRouter);
 app.use(AvisRouter);
 app.use(ContactRouter);
+
+app.use("/upload", express.static(path.join(__dirname, "./assets/upload")));
 
 // Serve REACT APP
 const reactIndexFile = path.join(

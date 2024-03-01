@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { hostname } from "../../../../../../../hostname/hostname";
-import { GrUploadOption } from "react-icons/gr";
 
 function AddService() {
   const navigate = useNavigate();
@@ -105,13 +104,6 @@ function AddService() {
     console.log(files); // Assurez-vous que les fichiers sont corrects
     setSelectedImages([...selectedImages, ...files]);
   };
-
-  const handleImageDelete = (index) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
-
   return (
     <section className={styles.container}>
       <form onSubmit={submit}>
@@ -148,21 +140,7 @@ function AddService() {
                 {...register("ImageUrl")}
                 onChange={handleImageChange}
               />
-
-              <button className="m-5 p-10">
-                <GrUploadOption />
-              </button>
             </div>
-
-            {selectedImages.map((image, index) => (
-              <div key={index} className="d-flex align-items-center">
-                <img src={image} alt={`Image ${index}`} />
-                <button onClick={() => handleImageDelete(index)}>
-                  Supprimer
-                </button>
-              </div>
-            ))}
-
             {errors.ImageUrl && (
               <p className="form-error">{errors.ImageUrl.message}</p>
             )}
