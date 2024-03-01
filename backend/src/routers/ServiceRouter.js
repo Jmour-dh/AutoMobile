@@ -8,7 +8,7 @@ const { verifyToken } = require("../middlewares/auth");
 // Middleware to verify token for routes defined below
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "./assets/upload");
+    cb(null, "assets/upload");
   },
   filename(req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`);

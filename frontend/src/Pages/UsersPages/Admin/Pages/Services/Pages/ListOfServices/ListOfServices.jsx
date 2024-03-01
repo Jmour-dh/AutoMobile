@@ -76,7 +76,7 @@ function ListOfServices() {
           {currentItems.map((service) => (
             <tr key={service.Service_ID}>
               <td className={styles.photo}>
-              <img src={`http://localhost:3001/assets/upload/${service.ImageUrl}`} alt={service.Nom} />
+              <img src={`${hostname}/upload/${service.ImageUrl}`} alt={service.Nom} />
 
               </td>
               <td>{service.Nom}</td>
