@@ -2,6 +2,11 @@ const models = require("../models");
 
 const createMoto = (req, res) => {
   const moto = req.body;
+  console.log("req !", req.body);
+  if (req.file) {
+    moto.ImageUrl = req.file.filename;
+  }
+  console.log(moto);
   models.moto
     .insertMoto(moto)
     .then(([result]) => {
@@ -43,6 +48,9 @@ const getAllMotos = (req, res) => {
 
 const updateMoto = (req, res) => {
   const moto = req.body;
+  if (req.file) {
+    moto.ImageUrl = req.file.filename;
+  }
   const motoID = req.Moto_ID;
   moto.id = parseInt(req.params.id, 10);
 

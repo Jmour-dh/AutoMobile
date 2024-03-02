@@ -8,8 +8,8 @@ class motoManager extends AbstractManager {
   async insertMoto(moto) {
     const query = `
       INSERT INTO ${this.table}
-      (Title,Modele, Marque, CreationDate, Year, Origin, FirstHand, OdometerMileage, Energy, Gearbox, Color, NumberOfPlaces, FiscalPower, Powers,Price, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6)
-      VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?) `;
+      (Title,Modele, Marque, CreationDate, Year, Origin, FirstHand, OdometerMileage, Energy, Gearbox, Color, NumberOfPlaces, FiscalPower, Powers,Price, ImageUrl)
+      VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
 
     const values = [
       moto.Title,
@@ -27,12 +27,7 @@ class motoManager extends AbstractManager {
       moto.FiscalPower,
       moto.Powers,
       moto.Price,
-      moto.Photo1,
-      moto.Photo2,
-      moto.Photo3,
-      moto.Photo4,
-      moto.Photo5,
-      moto.Photo6,
+      moto.ImageUrl,
     ];
 
     return this.database.query(query, values);
@@ -48,7 +43,7 @@ class motoManager extends AbstractManager {
   async update(moto) {
     return this.database.query(
       `UPDATE ${this.table} SET 
-      Title = ?,Modele = ?, Marque = ?, CreationDate = ?, Year = ?, Origin = ?, FirstHand = ?, OdometerMileage = ?, Energy = ?, Gearbox = ?, Color = ?, NumberOfPlaces = ?, FiscalPower = ?, Powers = ?,Price = ?, Photo1 = ?, Photo2 = ?, Photo3 = ?, Photo4 = ?, Photo5 = ?, Photo6 = ?
+      Title = ?,Modele = ?, Marque = ?, CreationDate = ?, Year = ?, Origin = ?, FirstHand = ?, OdometerMileage = ?, Energy = ?, Gearbox = ?, Color = ?, NumberOfPlaces = ?, FiscalPower = ?, Powers = ?,Price = ?, ImageUrl = ?
       WHERE Moto_ID = ?`,
       [
         moto.Title,
@@ -66,12 +61,7 @@ class motoManager extends AbstractManager {
         moto.FiscalPower,
         moto.Powers,
         moto.Price,
-        moto.Photo1,
-        moto.Photo2,
-        moto.Photo3,
-        moto.Photo4,
-        moto.Photo5,
-        moto.Photo6,
+        moto.ImageUrl,
         moto.id,
       ]
     );

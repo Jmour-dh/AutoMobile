@@ -1,20 +1,12 @@
 const express = require("express");
 
 const router = express.Router();
-const multer = require("multer");
+
 const serviceController = require("../controllers/ServiceController");
+const upload = require("../middlewares/handleUpload");
 const { verifyToken } = require("../middlewares/auth");
 
 // Middleware to verify token for routes defined below
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "assets/upload");
-  },
-  filename(req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-const upload = multer({ storage });
 
 router.use(verifyToken);
 // Create a new service

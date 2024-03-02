@@ -64,17 +64,17 @@ function AddService() {
   const submit = handleSubmit(async (data) => {
     try {
       clearErrors();
-  
+
       const formData = new FormData();
       formData.append("Nom", data.Nom);
       formData.append("Description", data.Description);
       formData.append("Price", data.Price);
-  
+      
+
       // Ajoutez seulement la première image du tableau, car nous permettons à l'utilisateur de sélectionner une seule image
       formData.append("ImageUrl", selectedImages[0]);
-  
+
       const token = localStorage.getItem("userToken");
-  
       const response = await axios.post(`${hostname}/services`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -82,10 +82,10 @@ function AddService() {
         },
         withCredentials: true,
       });
-  
+
       // Mettez à jour le state avec le chemin de l'image retourné par le serveur
       setSelectedImages([response.data.ImageUrl]);
-  
+
       console.log("Réponse du serveur:", response.data);
       navigate("/admin/services/list");
     } catch (error) {
@@ -100,8 +100,6 @@ function AddService() {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0]; // Prenez uniquement le premier fichier sélectionné
-    console.log(file); // Assurez-vous que le fichier est correct
-  
     setSelectedImages([file]); // Mettez à jour le state avec le nouveau fichier
   };
   return (
@@ -145,6 +143,11 @@ function AddService() {
               <p className="form-error">{errors.ImageUrl.message}</p>
             )}
           </div>
+          {errors.generic && (
+            <div className="mb-10">
+              <p className="form-error">{errors.generic.message}</p>
+            </div>
+          )}
           <div className="d-flex  justify-content-center align-items-center">
             <button className="bn53" onClick={handleCancelClick}>
               Annuler

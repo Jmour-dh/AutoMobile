@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `avis` (
-  `Avis_ID` int(11) NOT NULL,
+  `Avis_ID` int(11) NOT NULL ,
   `FirstNameVisiter` varchar(255) DEFAULT NULL,
   `LastNameVisiter` varchar(255) DEFAULT NULL,
   `EmailVisiter` varchar(255) DEFAULT NULL,
@@ -209,10 +209,8 @@ INSERT INTO `user` (`User_ID`, `FirstName`, `LastName`, `Address`, `Email`, `Pho
 --
 -- Index pour la table `avis`
 --
-ALTER TABLE `avis`
-  ADD PRIMARY KEY (`Avis_ID`),
-  ADD KEY `Service_ID` (`Service_ID`),
-  ADD KEY `User_ID` (`User_ID`);
+
+
 
 --
 -- Index pour la table `message`
