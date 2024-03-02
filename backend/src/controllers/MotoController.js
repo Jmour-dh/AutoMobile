@@ -1,21 +1,22 @@
 const models = require("../models");
 
-const createMoto = (req, res) => {
+const createMoto = async (req, res) => {
   const moto = req.body;
-  console.log("req !", req.body);
-  if (req.file) {
-    moto.ImageUrl = req.file.filename;
+
+  try {
+    const motoId = await models.moto.insertMoto(moto);
+
+    // Vérifie si des fichiers ont été téléchargés et les insère
+    if (req.files && req.files.length > 0) {
+      const imageUrls = req.files.map((file) => file.filename);
+      await models.moto.insertMotoImages(motoId, imageUrls);
+    }
+
+    res.location(`/motos/${motoId}`).sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
   }
-  console.log(moto);
-  models.moto
-    .insertMoto(moto)
-    .then(([result]) => {
-      res.location(`/motos/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
 };
 
 const getMotoByID = (req, res) => {

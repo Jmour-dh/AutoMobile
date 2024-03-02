@@ -73,16 +73,25 @@ function AddMoto() {
     resolver: yupResolver(validationSchema),
   });
 
-  const onDrop = (acceptedFiles, rejectedFiles) => {
-    if (rejectedFiles.length > 0) {
-      setFileError(
-        "Veuillez télécharger des fichiers d'image valides (jpg, jpeg, png)."
-      );
-    } else {
-      setFileError(null);
-      setSelectedImages(acceptedFiles);
-    }
-  };
+const onDrop = (acceptedFiles) => {
+  // Filtrez les fichiers pour s'assurer qu'ils ne soient pas déjà sélectionnés (évitez les doublons)
+  const newFiles = acceptedFiles.filter(newFile =>
+    !selectedImages.find(existingFile => existingFile.name === newFile.name));
+
+  // Combine les fichiers existants avec les nouveaux, tout en s'assurant de ne pas dépasser 6 fichiers au total
+  const updatedFiles = [...selectedImages, ...newFiles].slice(0, 6);
+
+  setSelectedImages(updatedFiles);
+
+  // Réinitialise ou affiche les erreurs si nécessaire
+  if (updatedFiles.length < 1) {
+    setFileError("Au moins une image est requise.");
+  } else if (updatedFiles.length > 6) {
+    setFileError("Vous ne pouvez sélectionner que jusqu'à six images.");
+  } else {
+    setFileError(null);
+  }
+};
 
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 6,
@@ -90,62 +99,50 @@ function AddMoto() {
     multiple: true,
   });
 
-  const submit = handleSubmit(async (data) => {
-    try {
-      clearErrors();
-      console.log(data);
+const submit = handleSubmit(async (data) => {
+  try {
+    clearErrors();
 
-      const formData = new FormData();
-      formData.append("Title", data.Title);
-      formData.append("Modele", data.Modele);
-      formData.append("Marque", data.Marque);
-      formData.append("CreationDate", data.CreationDate);
-      formData.append("Year", data.Year);
-      formData.append("Origin", data.Origin);
-      formData.append("FirstHand", data.FirstHand);
-      formData.append("OdometerMileage", data.OdometerMileage);
-      formData.append("Energy", data.Energy);
-      formData.append("Gearbox", data.Gearbox);
-      formData.append("Color", data.Color);
-      formData.append("NumberOfPlaces", data.NumberOfPlaces);
-      formData.append("FiscalPower", data.FiscalPower);
-      formData.append("Powers", data.Powers);
-      formData.append("Price", data.Price);
+    const formData = new FormData();
+    formData.append("Title", data.Title);
+    formData.append("Modele", data.Modele);
+    formData.append("Marque", data.Marque);
+    formData.append("CreationDate", data.CreationDate);
+    formData.append("Year", data.Year);
+    formData.append("Origin", data.Origin);
+    formData.append("FirstHand", data.FirstHand);
+    formData.append("OdometerMileage", data.OdometerMileage);
+    formData.append("Energy", data.Energy);
+    formData.append("Gearbox", data.Gearbox);
+    formData.append("Color", data.Color);
+    formData.append("NumberOfPlaces", data.NumberOfPlaces);
+    formData.append("FiscalPower", data.FiscalPower);
+    formData.append("Powers", data.Powers);
+    formData.append("Price", data.Price);
 
-      formData.append("ImageUrl", selectedImages[0]);
+    // Ajoutez correctement toutes les images sélectionnées
+selectedImages.forEach((image, index) => {
+  formData.append("images", image, image.name); // Utilisez "images" au lieu de "ImageUrl"
+});
 
-      // Ajoutez toutes les images sélectionnées
-      let images= [];
-      selectedImages.forEach((image, index) => {
-   
-        images.push(image.path);
-        console.log("ImageUrl:", images);
-  
-      });
-      formData.append(`ImageUrl`, images);
+    const token = localStorage.getItem("userToken");
 
-      console.log("FormData:", formData.get("Image1"));
+    const response = await axios.post(`${hostname}/motos`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
 
-      const token = localStorage.getItem("userToken");
+    console.log("Réponse du serveur:", response.data);
+    navigate("/admin/services/list");
+  } catch (error) {
+    console.error("Erreur côté frontend:", error);
+    setError("generic", { type: "generic", message: error.message });
+  }
+});
 
-      const response = await axios.post(`${hostname}/motos`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
-
-      // Mettez à jour le state avec le chemin de l'image retourné par le serveur
-     // setSelectedImages(response.data.Images.map((image) => image.url));
-
-      console.log("Réponse du serveur:", response.data);
-      navigate("/admin/services/list");
-    } catch (error) {
-      console.error("Erreur côté frontend:", error);
-      setError("generic", { type: "generic", message: error.message });
-    }
-  });
 
   const handleCancelClick = () => {
     navigate("/admin/motos/list");

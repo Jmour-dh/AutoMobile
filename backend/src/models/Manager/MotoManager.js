@@ -7,9 +7,9 @@ class motoManager extends AbstractManager {
 
   async insertMoto(moto) {
     const query = `
-      INSERT INTO ${this.table}
-      (Title,Modele, Marque, CreationDate, Year, Origin, FirstHand, OdometerMileage, Energy, Gearbox, Color, NumberOfPlaces, FiscalPower, Powers,Price, ImageUrl)
-      VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) `;
+    INSERT INTO ${this.table}
+    (Title, Modele, Marque, CreationDate, Year, Origin, FirstHand, OdometerMileage, Energy, Gearbox, Color, NumberOfPlaces, FiscalPower, Powers, Price)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const values = [
       moto.Title,
@@ -27,10 +27,17 @@ class motoManager extends AbstractManager {
       moto.FiscalPower,
       moto.Powers,
       moto.Price,
-      moto.ImageUrl,
     ];
 
-    return this.database.query(query, values);
+    const result = await this.database.query(query, values);
+    return result[0].insertId; // Retourne l'ID de la moto insérée
+  }
+
+  async insertMotoImages(motoId, imageUrls) {
+    const query = `INSERT INTO moto_images (Moto_ID, ImageUrl) VALUES ?`;
+    const values = imageUrls.map((url) => [motoId, url]);
+
+    return this.database.query(query, [values]);
   }
 
   async findByPK(id) {
