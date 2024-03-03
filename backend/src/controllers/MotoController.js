@@ -47,27 +47,25 @@ const getAllMotos = (req, res) => {
     });
 };
 
-const updateMoto = (req, res) => {
+const updateMoto = async (req, res) => {
   const moto = req.body;
-  if (req.file) {
-    moto.ImageUrl = req.file.filename;
-  }
-  const motoID = req.Moto_ID;
-  moto.id = parseInt(req.params.id, 10);
+  const motoID = req.params.id;
 
-  models.moto
-    .update(moto, motoID)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  try {
+    // Si de nouveaux fichiers ont été téléchargés, met à jour les images
+    if (req.files && req.files.length > 0) {
+      const imageUrls = req.files.map((file) => file.filename);
+      await models.moto.updateMotoImages(motoID, imageUrls);
+    }
+
+    // Met à jour les autres détails de la moto
+    await models.moto.update(moto, motoID);
+
+    res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 };
 
 const deleteMoto = (req, res) => {

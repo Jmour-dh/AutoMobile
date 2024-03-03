@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : sam. 02 mars 2024 à 22:23
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Mar 02, 2024 at 11:13 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `automobile`
+-- Database: `automobile`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `avis`
+-- Table structure for table `avis`
 --
 
 CREATE TABLE `avis` (
@@ -42,7 +42,7 @@ CREATE TABLE `avis` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `contact`
+-- Table structure for table `contact`
 --
 
 CREATE TABLE `contact` (
@@ -57,7 +57,7 @@ CREATE TABLE `contact` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `contact`
+-- Dumping data for table `contact`
 --
 
 INSERT INTO `contact` (`Contact_ID`, `FirstNameVisiter`, `LastNameVisiter`, `EmailVisiter`, `Objet`, `Message`, `User_ID`, `DateOfContact`) VALUES
@@ -73,7 +73,7 @@ INSERT INTO `contact` (`Contact_ID`, `FirstNameVisiter`, `LastNameVisiter`, `Ema
 -- --------------------------------------------------------
 
 --
--- Structure de la table `experiedtokens`
+-- Table structure for table `experiedtokens`
 --
 
 CREATE TABLE `experiedtokens` (
@@ -82,7 +82,7 @@ CREATE TABLE `experiedtokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Déchargement des données de la table `experiedtokens`
+-- Dumping data for table `experiedtokens`
 --
 
 INSERT INTO `experiedtokens` (`jwtToken`, `createdAt`) VALUES
@@ -102,7 +102,7 @@ INSERT INTO `experiedtokens` (`jwtToken`, `createdAt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `message`
+-- Table structure for table `message`
 --
 
 CREATE TABLE `message` (
@@ -118,7 +118,7 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Déchargement des données de la table `message`
+-- Dumping data for table `message`
 --
 
 INSERT INTO `message` (`Message_ID`, `FirstNameVisiter`, `LastNameVisiter`, `EmailVisiter`, `Objet`, `Message`, `User_ID`, `Moto_ID`, `DateOfMessage`) VALUES
@@ -132,7 +132,7 @@ INSERT INTO `message` (`Message_ID`, `FirstNameVisiter`, `LastNameVisiter`, `Ema
 -- --------------------------------------------------------
 
 --
--- Structure de la table `moto`
+-- Table structure for table `moto`
 --
 
 CREATE TABLE `moto` (
@@ -151,37 +151,64 @@ CREATE TABLE `moto` (
   `NumberOfPlaces` int(11) DEFAULT NULL,
   `FiscalPower` int(11) DEFAULT NULL,
   `Powers` int(11) DEFAULT NULL,
-  `Price` int(11) DEFAULT NULL,
-  `ImageUrl` text DEFAULT NULL
+  `Price` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `moto`
+-- Dumping data for table `moto`
 --
 
-INSERT INTO `moto` (`Moto_ID`, `Title`, `Modele`, `Marque`, `CreationDate`, `Year`, `Origin`, `FirstHand`, `OdometerMileage`, `Energy`, `Gearbox`, `Color`, `NumberOfPlaces`, `FiscalPower`, `Powers`, `Price`, `ImageUrl`) VALUES
-(1, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500, 'chemin/vers/photo1.jpg'),
-(2, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500, 'chemin/vers/photo1.jpg'),
-(3, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500, 'chemin/vers/photo1.jpg'),
-(4, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500, 'chemin/vers/photo1.jpg, chemin/vers/photo1.jpg'),
-(5, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500, 'chemin/vers/photo1.jpg , chemin/vers/photo1.jpg'),
-(6, 'aaa', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 25, NULL),
-(7, 'szss', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 95, NULL),
-(8, 'ssss', 'CB 750', 'HONDA', '0000-00-00', 1993, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20, NULL),
-(9, 'ssss', 'CB 750', 'HONDA', '0000-00-00', 1993, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20, NULL),
-(10, 'ssss', 'CB 750', 'HONDA', '0000-00-00', 1993, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20, NULL),
-(11, 'aaaa', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 80, NULL),
-(12, 'new ', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20, NULL),
-(13, 'aaa', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 90, NULL),
-(14, 'sss', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 25, NULL),
-(15, 'aaaa', 'CB 750', 'HONDA', '0000-00-00', 1973, '', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 90, ', vidange2.jpeg, new img.png'),
-(16, 'fdgdfg', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 80, ', BLOG - Monter ses pneus moto.jpg, vidange2.jpeg, new img.png'),
-(17, 'hhj', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 80, 'BLOG - Monter ses pneus moto.jpg,vidange2.jpeg,new img.png,logo.png');
+INSERT INTO `moto` (`Moto_ID`, `Title`, `Modele`, `Marque`, `CreationDate`, `Year`, `Origin`, `FirstHand`, `OdometerMileage`, `Energy`, `Gearbox`, `Color`, `NumberOfPlaces`, `FiscalPower`, `Powers`, `Price`) VALUES
+(1, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500),
+(2, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500),
+(3, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500),
+(4, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500),
+(5, 'Nom du modèle2 Nom de la marque1', 'Nom du modèle2', 'Nom de la marque1', '2022-02-23', 2022, 'Origine de la moto', 1, 10000, 'Essence', 'Manuelle', 'Rouge', 2, 7, 150, 3500),
+(6, 'aaa', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 25),
+(7, 'szss', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 95),
+(8, 'ssss', 'CB 750', 'HONDA', '0000-00-00', 1993, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20),
+(9, 'ssss', 'CB 750', 'HONDA', '0000-00-00', 1993, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20),
+(10, 'ssss', 'CB 750', 'HONDA', '0000-00-00', 1993, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20),
+(11, 'aaaa', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 80),
+(12, 'new ', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 20),
+(13, 'aaa', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 90),
+(14, 'sss', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 25),
+(15, 'aaaa', 'CB 750', 'HONDA', '0000-00-00', 1973, '', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 90),
+(16, 'fdgdfg', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 80),
+(17, 'hhj', 'CB 750', 'HONDA', '0000-00-00', 1973, 'France', 0, 49000, 'Electrique', 'Automatique', 'gris', 2, 7, 57, 80),
+(18, 'qwsdf', 'ssfd', 'qsd', '0000-00-00', 2005, 'tr', 0, 45, 'Electrique', 'Manuelle', 'red', 2, 421, 45, 453),
+(19, 'qwsdf', 'swdf', 'sdf', '0000-00-00', 2005, 'sd', 0, 45, 'Electrique', 'Manuelle', 'red', 2, 2, 2, 2),
+(20, 'bibi', 'bibi', 'bilel', '0000-00-00', 2005, 'tr', 0, 45, 'Electrique', 'Manuelle', 'red', 2, 421, 45, 453);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `role`
+-- Table structure for table `moto_images`
+--
+
+CREATE TABLE `moto_images` (
+  `Image_ID` int(11) NOT NULL,
+  `Moto_ID` int(11) NOT NULL,
+  `ImageUrl` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `moto_images`
+--
+
+INSERT INTO `moto_images` (`Image_ID`, `Moto_ID`, `ImageUrl`) VALUES
+(1, 19, '1709416003298-bil.jpg'),
+(2, 20, '1709417375749-456874123.jpg'),
+(3, 20, '1709417375763-IMG20240226100350.jpg'),
+(4, 20, '1709417375772-paste.png'),
+(5, 20, '1709417375772-flag-round-250.svg'),
+(6, 20, '1709417375772-Ar.svg'),
+(7, 20, '1709417375774-nature-mountain-affiche-couleurs-eclatantes-au-coucher-du-soleil-ai-generative.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
 --
 
 CREATE TABLE `role` (
@@ -190,7 +217,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Déchargement des données de la table `role`
+-- Dumping data for table `role`
 --
 
 INSERT INTO `role` (`Role_ID`, `Role`) VALUES
@@ -201,7 +228,7 @@ INSERT INTO `role` (`Role_ID`, `Role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `service`
+-- Table structure for table `service`
 --
 
 CREATE TABLE `service` (
@@ -213,7 +240,7 @@ CREATE TABLE `service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `service`
+-- Dumping data for table `service`
 --
 
 INSERT INTO `service` (`Service_ID`, `Nom`, `Description`, `Price`, `ImageUrl`) VALUES
@@ -231,12 +258,12 @@ INSERT INTO `service` (`Service_ID`, `Nom`, `Description`, `Price`, `ImageUrl`) 
 (38, 'vidange', 'fg', 80, '1709410124983-IMG_4147.png'),
 (39, 'vidange', 'dice_game', 80, '1709410145004-IMG_4147.png'),
 (40, 'ju', 'fg', 20, '1709410346051-IMG_4147.png'),
-(41, 'vidange', 'dice_game', 20, '1709410409957-vidange.jpeg');
+(41, 'vidange', 'dice_game', 20, '1709415910822-IMG20240226100350.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -254,7 +281,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Déchargement des données de la table `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`User_ID`, `FirstName`, `LastName`, `Address`, `Email`, `Phone`, `EmailVerified`, `HashedPassword`, `Role_ID`, `CreatedAt`, `UpdatedAt`) VALUES
@@ -271,38 +298,48 @@ INSERT INTO `user` (`User_ID`, `FirstName`, `LastName`, `Address`, `Email`, `Pho
 (22, 'Jmour', 'Dhia Eddine', '23 Rue de Nantes 75019', 'dhia@gmail.com', '0767243249', 0, '$argon2id$v=19$m=65536,t=5,p=1$8doUJUzfCiNVGmRbqyXsdA$eYoLEHuHTzt/lxw7qHURQjFU1RroAoskdLB0IZ7jARI', 3, '2024-02-29 09:16:51', '2024-02-29 13:54:27'),
 (23, 'Jmour', 'Dhia eddine', '23 Rue de Nantes', 'dhia1@gmail.com', '0767243245', 0, '$argon2id$v=19$m=65536,t=5,p=1$ZwgvQ49oA0mtIMi3jmQCzA$1ofaqM/d/ng4R01/1usmZZOL2PVPvGPGVe8VbPvV1yo', 2, '2024-02-29 10:27:10', '2024-02-29 14:05:50'),
 (24, 'jmourr', 'Dhia Eddine', '23 Rue de Nantes', 'dhiaeddinejm@gmail.com', '0267243249', 0, '$argon2id$v=19$m=65536,t=5,p=1$XW7FduP3+OJ6FJPb004W/w$+Bf77bMKHFyZ+JI4hJgOOpCbhRKHRsl6c8C8gOV+Ivg', 3, '2024-02-29 10:28:35', '2024-02-29 13:54:04'),
-(25, 'Chamli', 'Najwa', 'tunisie', 'najwa@gmail.com', '2425252525', 0, '$argon2id$v=19$m=65536,t=5,p=1$6qjCbi3enRo98D1NjAunYw$nblOOCAKhg6yzsfNFIZPmvbC7oTyyqXg2586VAkpWWg', 2, '2024-02-29 11:00:08', '2024-02-29 11:00:08');
+(25, 'Chamli', 'Najwa', 'tunisie', 'najwa@gmail.com', '2425252525', 0, '$argon2id$v=19$m=65536,t=5,p=1$6qjCbi3enRo98D1NjAunYw$nblOOCAKhg6yzsfNFIZPmvbC7oTyyqXg2586VAkpWWg', 2, '2024-02-29 11:00:08', '2024-02-29 11:00:08'),
+(26, 'bilel', 'zaaraoui', '4 place esquiros', 'bilelzara@gmail.com', '0659165303', 0, '$argon2id$v=19$m=65536,t=5,p=1$OQrqyol8+7u+GtTeBPL+9A$LfXIYwf/fKUAhA040iO4w6I4aWevpBFbegsqBcvNBXk', 1, '2024-03-02 21:41:25', '2024-03-02 21:43:37');
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `avis`
+-- Indexes for table `avis`
 --
 ALTER TABLE `avis`
   ADD PRIMARY KEY (`Avis_ID`);
 
 --
--- Index pour la table `message`
+-- Indexes for table `message`
 --
 ALTER TABLE `message`
-  ADD PRIMARY KEY (`Message_ID`);
+  ADD PRIMARY KEY (`Message_ID`),
+  ADD KEY `message_ibfk_1` (`User_ID`),
+  ADD KEY `message_ibfk_2` (`Moto_ID`);
 
 --
--- Index pour la table `moto`
+-- Indexes for table `moto`
 --
 ALTER TABLE `moto`
   ADD PRIMARY KEY (`Moto_ID`);
 
 --
--- Index pour la table `service`
+-- Indexes for table `moto_images`
+--
+ALTER TABLE `moto_images`
+  ADD PRIMARY KEY (`Image_ID`),
+  ADD KEY `fk_moto_id` (`Moto_ID`);
+
+--
+-- Indexes for table `service`
 --
 ALTER TABLE `service`
   ADD PRIMARY KEY (`Service_ID`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`User_ID`),
@@ -310,49 +347,61 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `Phone` (`Phone`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `avis`
+-- AUTO_INCREMENT for table `avis`
 --
 ALTER TABLE `avis`
   MODIFY `Avis_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `message`
+-- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `Message_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT pour la table `moto`
+-- AUTO_INCREMENT for table `moto`
 --
 ALTER TABLE `moto`
-  MODIFY `Moto_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Moto_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT pour la table `service`
+-- AUTO_INCREMENT for table `moto_images`
+--
+ALTER TABLE `moto_images`
+  MODIFY `Image_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
   MODIFY `Service_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT pour la table `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `message`
+-- Constraints for table `message`
 --
 ALTER TABLE `message`
   ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`Moto_ID`) REFERENCES `moto` (`Moto_ID`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `moto_images`
+--
+ALTER TABLE `moto_images`
+  ADD CONSTRAINT `fk_moto_images_moto` FOREIGN KEY (`Moto_ID`) REFERENCES `moto` (`Moto_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
