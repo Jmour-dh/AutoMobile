@@ -39,6 +39,19 @@ class motoManager extends AbstractManager {
 
     return this.database.query(query, [values]);
   }
+async findAllWithImages() {
+  const query = `
+    SELECT moto.*, GROUP_CONCAT(moto_images.ImageUrl) AS images
+    FROM moto
+    LEFT JOIN moto_images ON moto.Moto_ID = moto_images.Moto_ID
+    GROUP BY moto.Moto_ID`;
+
+  const [rows] = await this.database.query(query);
+  return rows.map(row => ({
+    ...row,
+    images: row.images ? row.images.split(',') : []
+  }));
+}
 
   async findByPK(id) {
     return this.database.query(

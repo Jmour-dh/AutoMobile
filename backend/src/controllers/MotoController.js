@@ -37,8 +37,8 @@ const getMotoByID = (req, res) => {
 
 const getAllMotos = (req, res) => {
   models.moto
-    .findAll()
-    .then(([rows]) => {
+    .findAllWithImages()
+    .then((rows) => {
       res.send(rows);
     })
     .catch((err) => {
