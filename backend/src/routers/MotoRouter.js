@@ -14,7 +14,7 @@ router.use(verifyToken);
 router.post("/motos", upload.array("images", 6), motoController.createMoto);
 router.get("/motos/:id", motoController.getMotoByID);
 router.get("/motos", motoController.getAllMotos);
-router.put("/motos/:id", motoController.updateMoto);
+router.put("/motos/:id", upload.array("images", 6), motoController.updateMoto);
 router.delete("/motos/:id", motoController.deleteMoto);
 
 module.exports = router;

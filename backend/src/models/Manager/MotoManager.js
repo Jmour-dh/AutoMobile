@@ -57,21 +57,25 @@ class motoManager extends AbstractManager {
   async updateMotoImages(motoId, newImageUrls) {
     try {
       // Supprime d'abord toutes les images existantes associées à la moto
-      await this.database.query('DELETE FROM moto_images WHERE Moto_ID = ?', [motoId]);
-  
+      await this.database.query("DELETE FROM moto_images WHERE Moto_ID = ?", [
+        motoId,
+      ]);
+
       // Insère les nouvelles images associées à la moto
-      const query = 'INSERT INTO moto_images (Moto_ID, ImageUrl) VALUES ?';
+      const query = "INSERT INTO moto_images (Moto_ID, ImageUrl) VALUES ?";
       const values = newImageUrls.map((url) => [motoId, url]);
-  
+
       await this.database.query(query, [values]);
-  
+
       return true; // Ou tout autre indicateur de succès
     } catch (err) {
-      console.error('Erreur lors de la mise à jour des images de la moto :', err);
+      console.error(
+        "Erreur lors de la mise à jour des images de la moto :",
+        err
+      );
       throw err;
     }
   }
-  
 
   async findByPK(id) {
     return this.database.query(
@@ -80,10 +84,20 @@ class motoManager extends AbstractManager {
     );
   }
 
-  async update(moto) {
+  async findImagesByPK(id) {
+    const query = `
+    SELECT ImageUrl
+    FROM moto_images
+    WHERE Moto_ID = ?`;
+
+    const [rows] = await this.database.query(query, [id]);
+    return rows.map((row) => row.ImageUrl);
+  }
+
+  async update(moto, motoID) {
     return this.database.query(
       `UPDATE ${this.table} SET 
-      Title = ?,Modele = ?, Marque = ?, CreationDate = ?, Year = ?, Origin = ?, FirstHand = ?, OdometerMileage = ?, Energy = ?, Gearbox = ?, Color = ?, NumberOfPlaces = ?, FiscalPower = ?, Powers = ?,Price = ?, ImageUrl = ?
+      Title = ?,Modele = ?, Marque = ?, CreationDate = ?, Year = ?, Origin = ?, FirstHand = ?, OdometerMileage = ?, Energy = ?, Gearbox = ?, Color = ?, NumberOfPlaces = ?, FiscalPower = ?, Powers = ?,Price = ?
       WHERE Moto_ID = ?`,
       [
         moto.Title,
@@ -101,11 +115,11 @@ class motoManager extends AbstractManager {
         moto.FiscalPower,
         moto.Powers,
         moto.Price,
-        moto.ImageUrl,
-        moto.id,
+        motoID,
       ]
     );
   }
+  
 
   async deleteMoto(motoID) {
     const query = `

@@ -19,20 +19,28 @@ const createMoto = async (req, res) => {
   }
 };
 
-const getMotoByID = (req, res) => {
-  models.moto
-    .findByPK(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+const getMotoByID = async (req, res) => {
+  try {
+    const [motoRows] = await models.moto.findByPK(req.params.id);
+
+    if (motoRows[0] == null) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const moto = motoRows[0];
+
+    // Utilise la nouvelle fonction findImagesByPK pour récupérer les images de la moto
+    const images = await models.moto.findImagesByPK(req.params.id);
+
+    // Ajoute le tableau d'images à l'objet moto
+    moto.images = images;
+
+    res.send(moto);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 };
 
 const getAllMotos = (req, res) => {

@@ -136,7 +136,7 @@ selectedImages.forEach((image, index) => {
     });
 
     console.log("Réponse du serveur:", response.data);
-    navigate("/admin/services/list");
+    navigate("/admin/motos/list");
   } catch (error) {
     console.error("Erreur côté frontend:", error);
     setError("generic", { type: "generic", message: error.message });
