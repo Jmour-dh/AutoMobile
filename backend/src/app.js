@@ -13,20 +13,21 @@ app.use(
   })
 );
 app.use("/upload", express.static(path.join(__dirname, "../assets/upload")));
-
+const ContactRouter = require("./routers/ContactRouter");
 const UserRouter = require("./routers/UserRouter");
+
 const MotoRouter = require("./routers/MotoRouter");
 const MessageRouter = require("./routers/MessageRouter");
 const ServiceRouter = require("./routers/ServiceRouter");
 const AvisRouter = require("./routers/AvisRouter");
-const ContactRouter = require("./routers/ContactRouter");
 
 app.use(UserRouter);
+app.use(ContactRouter);
+
 app.use(MotoRouter);
 app.use(MessageRouter);
 app.use(ServiceRouter);
 app.use(AvisRouter);
-app.use(ContactRouter);
 
 app.use("/upload", express.static(path.join(__dirname, "../assets/upload")));
 

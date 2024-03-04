@@ -17,17 +17,17 @@ function AddMoto() {
     Title: yup.string().required("Le titre est requis"),
     Modele: yup.string().required("Le modèle est requis"),
     Marque: yup.string().required("La marque est requise"),
-    CreationDate: yup.date().required("La date de création est requise"),
+    CreationDate: yup.string().required("La date de création est requise"),
     Year: yup.number().required("L'année est requise"),
     Origin: yup.string(),
     FirstHand: yup
       .string()
-      .oneOf(["true", "false"], "Veuillez sélectionner une option")
+      .oneOf(["1", "0"], "Veuillez sélectionner une option")
       .required("La sélection est requise"),
     OdometerMileage: yup.number(),
     Energy: yup
       .string()
-      .oneOf(["Essence", "Electrique"], "Veuillez sélectionner une option")
+      .oneOf(["Electrique", "Essence"], "Veuillez sélectionner une option")
       .required("La sélection est requise"),
     Gearbox: yup
       .string()
@@ -108,6 +108,7 @@ const submit = handleSubmit(async (data) => {
     formData.append("Modele", data.Modele);
     formData.append("Marque", data.Marque);
     formData.append("CreationDate", data.CreationDate);
+    console.log(data.CreationDate);
     formData.append("Year", data.Year);
     formData.append("Origin", data.Origin);
     formData.append("FirstHand", data.FirstHand);
@@ -248,8 +249,8 @@ selectedImages.forEach((image, index) => {
                 <label htmlFor="FirstHand">Première main:</label>
                 <select name="FirstHand" {...register("FirstHand")}>
                   <option value="">Sélectionner votre choix</option>
-                  <option value="true">Oui</option>
-                  <option value="false">Non</option>
+                  <option value="1">Oui</option>
+                  <option value="0">Non</option>
                 </select>
 
                 {errors.FirstHand && (
@@ -261,10 +262,10 @@ selectedImages.forEach((image, index) => {
               <div className="d-flex flex-column mx-10">
                 <label htmlFor="Energy">Energie:</label>
                 <select name="Energy" {...register("Energy")}>
-                  <option value="" disabled selected hidden>
+                <option value="">
                     Sélectionner votre choix
                   </option>
-                  <option value="Essance">Essance</option>
+                  <option value="Essence">Essence</option>
                   <option value="Electrique">Electrique</option>
                 </select>
                 {errors.Energy && (
@@ -274,7 +275,7 @@ selectedImages.forEach((image, index) => {
               <div className="d-flex flex-column mx-10">
                 <label htmlFor="Gearbox">Boite de vitesses:</label>
                 <select name="Gearbox" {...register("Gearbox")}>
-                  <option value="" disabled selected hidden>
+                  <option value="">
                     Sélectionner votre choix
                   </option>
                   <option value="Manuelle">Manuelle</option>

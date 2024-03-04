@@ -1,0 +1,32 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.about{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  opacity: 0.9;
+
+  img {
+    height: 350px;
+    width: 80%;
+    object-fit: cover;
+
+    @include mixin.xs {
+      width: 100%;
+    }
+  }
+
+  h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    font-size: 3rem;
+    font-family: var(--font-family-sansOpen);
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -18,6 +18,9 @@ import hondaCB from "../assets/images/motos/honda-cb.png";
 import ktmDuke from "../assets/images/motos/ktm-duke.png";
 import yamahaMt07 from "../assets/images/motos/yamaha-mt-07.png";
 
+//about
+import imgAbout from "../assets/images/about.avif";
+
 const images = {
   Logo,
   ImgHome1,
@@ -34,6 +37,7 @@ const images = {
   hondaCB,
   ktmDuke,
   yamahaMt07,
+  imgAbout,
 };
 
 export default images;

@@ -18,12 +18,12 @@ function UpdateMoto() {
     Title: yup.string().required("Le titre est requis"),
     Modele: yup.string().required("Le modèle est requis"),
     Marque: yup.string().required("La marque est requise"),
-    CreationDate: yup.date().required("La date de création est requise"),
+    CreationDate: yup.string().required("La date de création est requise"),
     Year: yup.number().required("L'année est requise"),
     Origin: yup.string(),
     FirstHand: yup
       .string()
-      .oneOf(["true", "false"], "Veuillez sélectionner une option")
+      .oneOf(["1", "0"], "Veuillez sélectionner une option")
       .required("La sélection est requise"),
     OdometerMileage: yup.number(),
     Energy: yup
@@ -294,8 +294,8 @@ function UpdateMoto() {
                 <label htmlFor="FirstHand">Première main:</label>
                 <select name="FirstHand" {...register("FirstHand")}>
                   <option value="">Sélectionner votre choix</option>
-                  <option value="true">Oui</option>
-                  <option value="false">Non</option>
+                  <option value="1">Oui</option>
+                  <option value="0">Non</option>
                 </select>
 
                 {errors.FirstHand && (
@@ -310,7 +310,7 @@ function UpdateMoto() {
                   <option value="" disabled selected hidden>
                     Sélectionner votre choix
                   </option>
-                  <option value="Essance">Essance</option>
+                  <option value="Essence">Essence</option>
                   <option value="Electrique">Electrique</option>
                 </select>
                 {errors.Energy && (
