@@ -1,0 +1,76 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.marques {
+  width: 100%;
+  height: 100%;
+
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: var(--font-family-roboto);
+    margin-bottom: 20px;
+  }
+
+  .logoMarque {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(154px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 137px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    @include mixin.lg {
+      grid-template-columns: repeat(3, minmax(154px, 1fr));
+      height: auto;
+    }
+
+    @include mixin.md {
+      grid-template-columns: repeat(3, minmax(154px, 1fr));
+      height: auto;
+    }
+
+    @include mixin.sm-lt {
+      grid-template-columns: repeat(3, minmax(154px, 1fr));
+      height: auto;
+    }
+
+    @include mixin.sm {
+      grid-template-columns: repeat(2, minmax(154px, 1fr));
+      height: auto;
+    }
+
+    @include mixin.xs {
+      grid-template-columns: repeat(2, minmax(154px, 1fr));
+      height: auto;
+    }
+
+    .marqueItem {
+      width: 100%;
+      height: 74px;
+      background: rgb(245, 242, 242);
+      border-radius: 10px;
+      cursor: pointer !important;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      img {
+        width: 64px;
+        height: 44px;
+      }
+
+      p {
+        text-align: center;
+        font-family: var(--font-family-sansOpen);
+        font-size: large;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

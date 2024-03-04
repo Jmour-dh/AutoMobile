@@ -1,0 +1,139 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.ban {
+  width: 100%;
+  height: 100%;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+
+  .banImg {
+    width: 100%;
+    height: 480px;
+    background-color: #edeff0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+
+    .img1 {
+      width: 40%;
+      height: 100%;
+
+      img {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+
+        @include mixin.md {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+
+        @include mixin.sm-lt {
+          width: 100%;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+    
+        @include mixin.sm {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+    
+        @include mixin.xs {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+      }
+
+      @include mixin.md {
+        width: 100%;
+        height: 50%;
+      }
+
+      @include mixin.sm-lt {
+        width: 100%;
+        height: 50%;
+      }
+  
+      @include mixin.sm {
+        width: 100%;
+        height: 50%;
+      }
+  
+      @include mixin.xs {
+        width: 100%;
+        height: 50%;
+      }
+    }
+
+    .img2 {
+      width: 60%;
+      height: 100%;
+
+      img {
+        height: 80%;
+
+        @include mixin.xs {
+
+          height: 50%;
+        }
+      }
+
+      @include mixin.md {
+        width: 100%;
+        height: 50%;
+      }
+
+      @include mixin.sm-lt {
+        width: 100%;
+        height: 50%;
+      }
+  
+      @include mixin.sm {
+        width: 100%;
+        height: 50%;
+      }
+  
+      @include mixin.xs {
+        width: 100%;
+        height: 50%;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 10px;
+      text-align: center;
+      font-family: var(--font-family-sansOpen);
+    }
+
+    @include mixin.md {
+      flex-direction: column-reverse;
+      height: 600px;
+    }
+
+    @include mixin.sm-lt {
+      flex-direction: column-reverse;
+      height: 600px;
+    }
+
+    @include mixin.sm {
+      flex-direction: column-reverse;
+      height: 600px;
+    }
+
+    @include mixin.xs {
+      flex-direction: column-reverse;
+      height: 500px;
+    }
+  }
+}

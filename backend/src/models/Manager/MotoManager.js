@@ -119,7 +119,6 @@ class motoManager extends AbstractManager {
       ]
     );
   }
-  
 
   async deleteMoto(motoID) {
     const query = `
