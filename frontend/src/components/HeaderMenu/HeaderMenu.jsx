@@ -33,7 +33,7 @@ function HeaderMenu() {
                   // Si l'utilisateur est connecté, redirige vers le profil en fonction du roleId
                   <NavLink
                     onClick={closeMenu}
-                    to={roleId === "1" ? "/admin" : roleId === "2" ? "/user" : "/personal"}
+                    to={roleId === "1" ? "/admin/messages/list" : roleId === "2" ? "/user" : "/personal/messages/list"}
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
                   >
                     {text}

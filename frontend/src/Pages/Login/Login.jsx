@@ -80,7 +80,7 @@ function Login() {
           navigate("/user");
           break;
         default:
-          navigate("/personal");
+          navigate("/personal/messages/list");
           break;
       }
     } catch (error) {

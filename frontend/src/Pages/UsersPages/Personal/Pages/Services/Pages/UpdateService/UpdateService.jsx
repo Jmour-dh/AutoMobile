@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./AddService.module.scss";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { hostname } from "../../../../../../../hostname/hostname";
+import styles from "./UpdateService.module.scss";
 
-function AddService() {
+function UpdateService() {
   const navigate = useNavigate();
-
+  const { serviceId } = useParams();
   const [selectedImages, setSelectedImages] = useState([]);
+  const [imageName, setImageName] = useState("");
 
   const validationSchema = yup.object({
     Nom: yup
@@ -38,9 +39,6 @@ function AddService() {
         }
         return originalValue;
       }),
-    ImageUrl: yup.mixed().test("fileSize", "L'image est requise", (value) => {
-      return value && value.length > 0;
-    }),
   });
 
   const initialValues = {
@@ -53,6 +51,7 @@ function AddService() {
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
@@ -61,33 +60,72 @@ function AddService() {
     resolver: yupResolver(validationSchema),
   });
 
+  useEffect(() => {
+    const fetchServiceById = async () => {
+      const token = localStorage.getItem("userToken");
+      try {
+        const response = await axios.get(`${hostname}/services/${serviceId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        });
+        const service = response.data;
+
+        // Pré-remplir le formulaire avec les détails du service
+        Object.keys(service).forEach((key) => {
+          if (key === "ImageUrl") {
+            setSelectedImages([service[key]]);
+            setImageName(service[key].split("/").pop()); // Récupérez le nom du fichier à partir de l'URL
+          } else {
+            setValue(key, service[key]);
+          }
+        });
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération du service par ID :",
+          error
+        );
+      }
+    };
+
+    fetchServiceById();
+  }, [serviceId, setValue, setSelectedImages]);
+
   const submit = handleSubmit(async (data) => {
     try {
       clearErrors();
+
+      console.log("Données du formulaire:", data);
 
       const formData = new FormData();
       formData.append("Nom", data.Nom);
       formData.append("Description", data.Description);
       formData.append("Price", data.Price);
-      
 
       // Ajoutez seulement la première image du tableau, car nous permettons à l'utilisateur de sélectionner une seule image
       formData.append("ImageUrl", selectedImages[0]);
 
+      console.log("Image sélectionnée:", selectedImages[0]);
+
       const token = localStorage.getItem("userToken");
-      const response = await axios.post(`${hostname}/services`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
+
+      const response = await axios.put(
+        `${hostname}/services/${serviceId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      console.log("Réponse du serveur:", response.data);
 
       // Mettez à jour le state avec le chemin de l'image retourné par le serveur
       setSelectedImages([response.data.ImageUrl]);
 
-      console.log("Réponse du serveur:", response.data);
-      navigate("/admin/services/list");
+      navigate("/personal/services/list");
     } catch (error) {
       console.error("Erreur côté frontend:", error);
       setError("generic", { type: "generic", message: error.message });
@@ -95,13 +133,16 @@ function AddService() {
   });
 
   const handleCancelClick = () => {
-    navigate("/admin/services/list");
+    navigate("/personal/services/list");
   };
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0]; // Prenez uniquement le premier fichier sélectionné
-    setSelectedImages([file]); // Mettez à jour le state avec le nouveau fichier
+    const file = event.target.files[0];
+    console.log(file);
+
+    setSelectedImages([file]);
   };
+
   return (
     <section className={styles.container}>
       <form onSubmit={submit}>
@@ -131,23 +172,21 @@ function AddService() {
           </div>
           <div className="d-flex flex-column  mx-10">
             <label htmlFor="ImageUrl"> Image:</label>
-            <div className="d-flex align-items-center justify-content-center">
+            <div className="d-flex flex-column align-items-center justify-content-center">
               <input
                 type="file"
                 name="ImageUrl"
                 {...register("ImageUrl")}
                 onChange={handleImageChange}
               />
+              <div className="d-flex align-items-center justify-content-center">
+                <p>{imageName}</p>
+              </div>
             </div>
             {errors.ImageUrl && (
               <p className="form-error">{errors.ImageUrl.message}</p>
             )}
           </div>
-          {errors.generic && (
-            <div className="mb-10">
-              <p className="form-error">{errors.generic.message}</p>
-            </div>
-          )}
           <div className="d-flex  justify-content-center align-items-center">
             <button className="bn53" onClick={handleCancelClick}>
               Annuler
@@ -162,4 +201,4 @@ function AddService() {
   );
 }
 
-export default AddService;
+export default UpdateService;

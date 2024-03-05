@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./NavigationAdmin.module.scss";
+import styles from "./NavigationPersonal.module.scss";
 import { useAuth } from "../../utils/UseConnecte";
 import { hostname } from "../../hostname/hostname";
 
-function NavigationAdmin() {
+function NavigationPersonal() {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -13,7 +13,6 @@ function NavigationAdmin() {
     { to: "messages/list", text: "Messages" },
     { to: "avis/list", text: "Avis" },
     { to: "contacts/list", text: "Contacts" },
-    { to: "personals", text: "Personnels" },
     { to: "users", text: "Utilisateurs" },
     { to: "motos", text: "Motos" },
     { to: "services", text: "Services" },
@@ -61,4 +60,4 @@ function NavigationAdmin() {
   );
 }
 
-export default NavigationAdmin;
+export default NavigationPersonal

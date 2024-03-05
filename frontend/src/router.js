@@ -105,6 +105,76 @@ const ListOfServices = lazy(() =>
   )
 );
 
+//Personal
+//Avis
+const PersonalAvis = lazy(() => import("./Pages/UsersPages/Personal/Pages/Avis/Avis"));
+const PersonalListOfAvis = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Avis/Pages/ListOfAvis/ListOfAvis")
+);
+
+//Contacts
+const PersonalContacts = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Contacts/Contacts")
+);
+const PersonalListOfContacts = lazy(() =>
+  import(
+    "./Pages/UsersPages/Personal/Pages/Contacts/Pages/ListOfContacts/ListOfContacts"
+  )
+);
+
+//Messages
+const PersonalMessages = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Messages/Messages")
+);
+const PersonalListOfMessages = lazy(() =>
+  import(
+    "./Pages/UsersPages/Personal/Pages/Messages/Pages/ListOfMessages/ListOfMessages"
+  )
+);
+
+//Motos
+const PersonalMotos = lazy(() => import("./Pages/UsersPages/Personal/Pages/Motos/Motos"));
+const PersonalAddMoto = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Motos/Pages/AddMoto/AddMoto")
+);
+const PersonalUpdateMoto = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Motos/Pages/UpdateMoto/UpdateMoto")
+);
+const PersonalListOfMotos = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Motos/Pages/ListOfMotos/ListOfMotos")
+);
+
+
+//Users
+const PersonalUsers = lazy(() => import("./Pages/UsersPages/Personal/Pages/Users/Users"));
+const PersonalAddUser = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Users/Pages/AddUser/AddUser")
+);
+const PersonalUpdateUser = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Users/Pages/UpdateUser/UpdateUser")
+);
+const PersonalListOfUsers = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Users/Pages/ListOfUsers/ListOfUsers")
+);
+
+//Services
+const PersonalServices = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Services/Services")
+);
+const PersonalAddService = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Services/Pages/AddService/AddService")
+);
+const PersonalUpdateService = lazy(() =>
+  import(
+    "./Pages/UsersPages/Personal/Pages/Services/Pages/UpdateService/UpdateService"
+  )
+);
+const PersonalListOfServices = lazy(() =>
+  import(
+    "./Pages/UsersPages/Personal/Pages/Services/Pages/ListOfServices/ListOfServices"
+  )
+);
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -147,7 +217,6 @@ export const router = createBrowserRouter([
         ),
         children: [
           {
-            
             path: "avis",
             element: <Avis />,
             children: [
@@ -294,6 +363,116 @@ export const router = createBrowserRouter([
             <Personal />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: "avis",
+            element: <PersonalAvis />,
+            children: [
+              {
+                path: "list",
+                element: <PersonalListOfAvis />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/personal/avis/list"),
+              },
+            ],
+          },
+          {
+            path: "contacts",
+            element: <PersonalContacts />,
+            children: [
+              {
+                path: "list",
+                element: <PersonalListOfContacts />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/personal/contacts/list"),
+              },
+            ],
+          },
+          {
+            path: "messages",
+            element: <PersonalMessages />,
+            children: [
+              {
+                path: "list",
+                element: <PersonalListOfMessages />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/personal/messages/list"),
+              },
+            ],
+          },
+          {
+            path: "motos",
+            element: <PersonalMotos />,
+            children: [
+              {
+                path: "list",
+                element: <PersonalListOfMotos />,
+              },
+              {
+                path: "new",
+                element: <PersonalAddMoto />,
+              },
+              {
+                path: "updateMoto/:motoId",
+                element: <PersonalUpdateMoto />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/personal/motos/list"),
+              },
+            ],
+          },
+          {
+            path: "users",
+            element: <PersonalUsers />,
+            children: [
+              {
+                path: "list",
+                element: <PersonalListOfUsers />,
+              },
+              {
+                path: "new",
+                element: <PersonalAddUser />,
+              },
+              {
+                path: "updateUser/:userId",
+                element: <PersonalUpdateUser />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/personal/users/list"),
+              },
+            ],
+          },
+          {
+            path: "services",
+            element: <PersonalServices />,
+            children: [
+              {
+                path: "list",
+                element: <PersonalListOfServices />,
+              },
+              {
+                path: "new",
+                element: <PersonalAddService />,
+              },
+              {
+                path: "updateService/:serviceId",
+                element: <PersonalUpdateService />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/personal/services/list"),
+              },
+            ],
+          },
+        ],
       },
     ],
   },

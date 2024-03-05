@@ -87,7 +87,7 @@ function AddService() {
       setSelectedImages([response.data.ImageUrl]);
 
       console.log("Réponse du serveur:", response.data);
-      navigate("/admin/services/list");
+      navigate("/personal/services/list");
     } catch (error) {
       console.error("Erreur côté frontend:", error);
       setError("generic", { type: "generic", message: error.message });
@@ -95,7 +95,7 @@ function AddService() {
   });
 
   const handleCancelClick = () => {
-    navigate("/admin/services/list");
+    navigate("/personal/services/list");
   };
 
   const handleImageChange = (event) => {
