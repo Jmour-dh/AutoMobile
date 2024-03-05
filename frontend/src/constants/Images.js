@@ -21,6 +21,9 @@ import yamahaMt07 from "../assets/images/motos/yamaha-mt-07.png";
 //about
 import imgAbout from "../assets/images/about.avif";
 
+//profile
+import profile from "../assets/images/profile.avif";
+
 const images = {
   Logo,
   ImgHome1,
@@ -38,6 +41,7 @@ const images = {
   ktmDuke,
   yamahaMt07,
   imgAbout,
+  profile,
 };
 
 export default images;

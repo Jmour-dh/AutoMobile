@@ -107,7 +107,9 @@ const ListOfServices = lazy(() =>
 
 //Personal
 //Avis
-const PersonalAvis = lazy(() => import("./Pages/UsersPages/Personal/Pages/Avis/Avis"));
+const PersonalAvis = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Avis/Avis")
+);
 const PersonalListOfAvis = lazy(() =>
   import("./Pages/UsersPages/Personal/Pages/Avis/Pages/ListOfAvis/ListOfAvis")
 );
@@ -133,7 +135,9 @@ const PersonalListOfMessages = lazy(() =>
 );
 
 //Motos
-const PersonalMotos = lazy(() => import("./Pages/UsersPages/Personal/Pages/Motos/Motos"));
+const PersonalMotos = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Motos/Motos")
+);
 const PersonalAddMoto = lazy(() =>
   import("./Pages/UsersPages/Personal/Pages/Motos/Pages/AddMoto/AddMoto")
 );
@@ -141,12 +145,15 @@ const PersonalUpdateMoto = lazy(() =>
   import("./Pages/UsersPages/Personal/Pages/Motos/Pages/UpdateMoto/UpdateMoto")
 );
 const PersonalListOfMotos = lazy(() =>
-  import("./Pages/UsersPages/Personal/Pages/Motos/Pages/ListOfMotos/ListOfMotos")
+  import(
+    "./Pages/UsersPages/Personal/Pages/Motos/Pages/ListOfMotos/ListOfMotos"
+  )
 );
 
-
 //Users
-const PersonalUsers = lazy(() => import("./Pages/UsersPages/Personal/Pages/Users/Users"));
+const PersonalUsers = lazy(() =>
+  import("./Pages/UsersPages/Personal/Pages/Users/Users")
+);
 const PersonalAddUser = lazy(() =>
   import("./Pages/UsersPages/Personal/Pages/Users/Pages/AddUser/AddUser")
 );
@@ -154,7 +161,9 @@ const PersonalUpdateUser = lazy(() =>
   import("./Pages/UsersPages/Personal/Pages/Users/Pages/UpdateUser/UpdateUser")
 );
 const PersonalListOfUsers = lazy(() =>
-  import("./Pages/UsersPages/Personal/Pages/Users/Pages/ListOfUsers/ListOfUsers")
+  import(
+    "./Pages/UsersPages/Personal/Pages/Users/Pages/ListOfUsers/ListOfUsers"
+  )
 );
 
 //Services
@@ -162,7 +171,9 @@ const PersonalServices = lazy(() =>
   import("./Pages/UsersPages/Personal/Pages/Services/Services")
 );
 const PersonalAddService = lazy(() =>
-  import("./Pages/UsersPages/Personal/Pages/Services/Pages/AddService/AddService")
+  import(
+    "./Pages/UsersPages/Personal/Pages/Services/Pages/AddService/AddService"
+  )
 );
 const PersonalUpdateService = lazy(() =>
   import(
@@ -174,6 +185,12 @@ const PersonalListOfServices = lazy(() =>
     "./Pages/UsersPages/Personal/Pages/Services/Pages/ListOfServices/ListOfServices"
   )
 );
+
+//User
+const UserProfile = lazy(() => import("./Pages/UsersPages/User/Pages/UserProfile"));
+const Dashboard = lazy(() => import("./Pages/UsersPages/User/Pages/Dashboard/Dashboard"));
+const Profile = lazy(() => import("./Pages/UsersPages/User/Pages/Profile/Profile"));
+const UpdateProfile = lazy(() => import("./Pages/UsersPages/User/Pages/UpdateProfile/UpdateProfile"));
 
 export const router = createBrowserRouter([
   {
@@ -355,6 +372,30 @@ export const router = createBrowserRouter([
             <User />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: "details",
+            element: <UserProfile />,
+            children: [
+              {
+                path: "tabBord",
+                element: <Dashboard />,
+              },
+              {
+                path: "profile",
+                element: <Profile />,
+              },
+              {
+                path: "updateProfile/:userId",
+                element: <UpdateProfile />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/user/details/profile"),
+              },
+            ],
+          },
+        ],
       },
       {
         path: "/personal",
