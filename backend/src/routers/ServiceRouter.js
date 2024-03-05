@@ -6,22 +6,24 @@ const serviceController = require("../controllers/ServiceController");
 const upload = require("../middlewares/handleUpload");
 const { verifyToken } = require("../middlewares/auth");
 
-// Middleware to verify token for routes defined below
+// Routes that don't require token verification
+router.get("/services/:id", serviceController.getServiceByID);
+router.get("/services", serviceController.getAllServices);
 
-router.use(verifyToken);
 // Create a new service
 router.post(
   "/services",
+  verifyToken,
   upload.single("ImageUrl"),
   serviceController.createService
 );
-router.get("/services/:id", serviceController.getServiceByID);
-router.get("/services", serviceController.getAllServices);
+
 router.put(
   "/services/:id",
+  verifyToken,
   upload.single("ImageUrl"),
   serviceController.updateService
 );
-router.delete("/services/:id", serviceController.deleteService);
+router.delete("/services/:id", verifyToken, serviceController.deleteService);
 
 module.exports = router;

@@ -29,7 +29,7 @@ function NavigationAdmin() {
         // Le token a expiré
         console.log("Token expiré. Déconnexion...");
         logout();
-        navigate("/login");
+        navigate("/");
       } else {
         await axios.get(`${hostname}/logout`, {
           headers: {
@@ -38,7 +38,7 @@ function NavigationAdmin() {
         });
 
         logout();
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Erreur lors de la déconnexion", error);

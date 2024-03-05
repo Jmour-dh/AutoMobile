@@ -22,11 +22,11 @@ const ServiceRouter = require("./routers/ServiceRouter");
 const AvisRouter = require("./routers/AvisRouter");
 
 app.use(UserRouter);
+app.use(ServiceRouter);
 app.use(ContactRouter);
-
 app.use(MotoRouter);
 app.use(MessageRouter);
-app.use(ServiceRouter);
+
 app.use(AvisRouter);
 
 app.use("/upload", express.static(path.join(__dirname, "../assets/upload")));

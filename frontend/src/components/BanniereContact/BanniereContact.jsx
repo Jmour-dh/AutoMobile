@@ -96,6 +96,7 @@ function BanniereContact() {
   });
 
   const submit = handleSubmit(async (data) => {
+    console.log("Formulaire soumis avec les données :", data);
     try {
       clearErrors();
       if (isLoggedIn) {
@@ -140,7 +141,7 @@ function BanniereContact() {
                 <p className="form-error">{errors.generic.message}</p>
               </div>
             )}
-            <button className="m-5" disabled={isSubmitting}>
+            <button className="m-5" disabled={isSubmitting} type="submit">
               Envoyer
             </button>
           </form>
