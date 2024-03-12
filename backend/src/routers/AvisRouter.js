@@ -13,4 +13,6 @@ router.get("/avis/:id", verifyToken, avisController.getAvisByID);
 router.put("/avis/:id", verifyToken, avisController.updateAvis);
 router.delete("/avis/:id", verifyToken, avisController.deleteAvis);
 
+router.get("/avis/service/:serviceID", avisController.getAllAvisByServiceID);
+
 module.exports = router;

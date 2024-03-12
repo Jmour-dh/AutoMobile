@@ -1,18 +1,25 @@
-// ModalAvis.jsx
+// Importez useState pour gérer l'état
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { BsStarFill } from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import { hostname } from "../../hostname/hostname";
+import { useAuth } from "../../utils/UseConnecte";
 
-function ModalAvis({ showModal, handleModalClose }) {
+function ModalAvis({ showModal, handleModalClose, serviceId,handleClose }) {
+  const { isLoggedIn } = useAuth();
+
+  // Utilisez useState pour gérer l'état du formulaire
   const [formData, setFormData] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
-    commentaire: "",
-    note: 0,
+    FirstNameVisiter: "",
+    LastNameVisiter: "",
+    Email: "",
+    Comment: "",
+    Note: 0,
   });
 
+  // Définissez la fonction handleChange pour mettre à jour l'état du formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -21,24 +28,50 @@ function ModalAvis({ showModal, handleModalClose }) {
     });
   };
 
-  const handleStarClick = (note) => {
+  // Définissez la fonction handleStarClick pour mettre à jour la note dans l'état du formulaire
+  const handleStarClick = (Note) => {
     setFormData({
       ...formData,
-      note: note,
+      Note: Note,
     });
   };
 
-  const handleSubmit = (e) => {
+  // Définissez la fonction handleSubmit pour soumettre les données du formulaire
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Formulaire soumis avec les données :", formData);
-    setFormData({
-      nom: "",
-      prenom: "",
-      email: "",
-      commentaire: "",
-      note: 0,
-    });
-    handleModalClose();
+
+    try {
+      // Simulez la récupération de l'utilisateur connecté depuis le stockage local
+      const userId = localStorage.getItem("userId");
+
+      // Créez un objet data avec les données du formulaire
+      const data = {
+        ...formData,
+        User_ID: userId,
+        Service_ID: serviceId,
+      };
+
+      // Continuez avec la soumission du formulaire
+      const response = await axios.post(`${hostname}/avis`, data);
+      console.log("Réponse du serveur:", response.data);
+
+      // Réinitialisez l'état du formulaire après la soumission réussie
+      setFormData({
+        FirstNameVisiter: "",
+        LastNameVisiter: "",
+        Email: "",
+        Comment: "",
+        Note: 0,
+      });
+
+      // Fermez la modal
+      handleModalClose();
+      handleClose();
+    } catch (error) {
+      console.error("Erreur côté frontend:", error);
+      // Gérez les erreurs ici si nécessaire
+    }
   };
 
   return (
@@ -51,51 +84,61 @@ function ModalAvis({ showModal, handleModalClose }) {
           <Form.Group controlId="formNote">
             <Form.Label>Note</Form.Label>
             <div>
-              {[1, 2, 3, 4, 5].map((note) => (
+              {[1, 2, 3, 4, 5].map((Note) => (
                 <BsStarFill
-                  key={note}
-                  color={note <= formData.note ? "#f39c12" : "#ccc"}
+                  key={Note}
+                  color={Note <= formData.Note ? "#f39c12" : "#ccc"}
                   style={{ cursor: "pointer" }}
-                  onClick={() => handleStarClick(note)}
+                  name="Note"
+                  onClick={() => handleStarClick(Note)}
                 />
               ))}
             </div>
           </Form.Group>
-          <Form.Group controlId="formNom">
-            <Form.Label>Nom</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Votre nom"
-              name="nom"
-              value={formData.nom}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+          {isLoggedIn ? (
+            <></>
+          ) : (
+            <>
+              <Form.Group controlId="formNom">
+                <Form.Label>Nom</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Votre nom"
+                  name="FirstNameVisiter"
+                  value={formData.FirstNameVisiter}
+                  onChange={handleChange}
+                  pattern="[A-Za-zÀ-ÖØ-öø-ÿ -']+"
+                  required
+                />
+              </Form.Group>
 
-          <Form.Group controlId="formPrenom">
-            <Form.Label>Prénom</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Votre prénom"
-              name="prenom"
-              value={formData.prenom}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+              <Form.Group controlId="formPrenom">
+                <Form.Label>Prénom</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Votre prénom"
+                  name="LastNameVisiter"
+                  value={formData.LastNameVisiter}
+                  onChange={handleChange}
+                  pattern="[A-Za-zÀ-ÖØ-öø-ÿ -']+"
+                  required
+                />
+              </Form.Group>
 
-          <Form.Group controlId="formEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Votre email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Votre email"
+                  name="Email"
+                  value={formData.Email}
+                  onChange={handleChange}
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  required
+                />
+              </Form.Group>
+            </>
+          )}
 
           <Form.Group controlId="formCommentaire">
             <Form.Label>Commentaire</Form.Label>
@@ -103,15 +146,19 @@ function ModalAvis({ showModal, handleModalClose }) {
               as="textarea"
               rows={3}
               placeholder="Votre commentaire"
-              name="commentaire"
-              value={formData.commentaire}
+              name="Comment"
+              value={formData.Comment}
               onChange={handleChange}
               required
             />
           </Form.Group>
 
           <div className="d-flex justify-content-between m-2">
-            <Button variant="secondary" onClick={handleModalClose} className="mr-2">
+            <Button
+              variant="secondary"
+              onClick={handleModalClose}
+              className="mr-2"
+            >
               Fermer
             </Button>
             <Button variant="primary" type="submit">

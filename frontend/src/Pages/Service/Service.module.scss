@@ -16,6 +16,7 @@
 
     .contentImg {
       width: 40%;
+      height: 300px;
 
       img {
         width: 100%;
@@ -47,64 +48,25 @@
         color: var(--secondary);
         text-decoration: underline;
       }
+
+      .avisBtn {
+        align-self: flex-end;
+        margin-top: 1%;
+        margin-right: 5%;
+
+        button {
+          background-color: var(--secondary);
+          color: white;
+          padding: 10px 30px;
+          border-radius: 10px;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
     }
   }
 
-  .contentAvis {
-    width: 90%;
-    height: 100%;
-    margin: 0 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f1f2f6;
-
-    ul {
-      width: 60%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      max-height: 300px; 
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #7f8c8d #ecf0f1;
-    }
-
-    ul::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    ul::-webkit-scrollbar-thumb {
-      background-color: #7f8c8d; 
-    }
-    
-    ul::-webkit-scrollbar-track {
-      background-color: #ecf0f1; 
-    }
-
-    .avisItem {
-      min-height: 80px; 
-      background-color: rgb(250, 250, 246);
-      border-radius: 10px;
-       padding: 5px;
-      margin: 10px;
-      width: 70%;
-      
-    }
-
-    .avisUser {
-      font-weight: bold;
-      margin-right: 5px;
-    }
-
-    .avisStars {
-      margin-left: 5px;
-    }
-
-    p {
-      margin: 0 5px;
-    }
-  }
+ 
 }

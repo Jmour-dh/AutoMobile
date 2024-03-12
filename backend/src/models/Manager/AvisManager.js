@@ -54,5 +54,30 @@ class avisManager extends AbstractManager {
 
     return this.database.query(query, values);
   }
+
+  async findAllByServiceID(serviceID) {
+    const query = `
+      SELECT A.*, 
+        CASE
+          WHEN U.User_ID IS NOT NULL THEN U.FirstName
+          ELSE A.FirstNameVisiter
+        END AS FirstNameVisiter,
+        CASE
+          WHEN U.User_ID IS NOT NULL THEN U.LastName
+          ELSE A.LastNameVisiter
+        END AS LastNameVisiter
+      FROM ${this.table} A
+      LEFT JOIN user U ON A.User_ID = U.User_ID
+      WHERE A.Service_ID = ?`;
+  
+    const values = [serviceID];
+  
+    return this.database.query(query, values);
+  }
+  
+  
+  
+  
+  
 }
 module.exports = avisManager;
