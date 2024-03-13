@@ -82,7 +82,7 @@
         text-align: center;
 
         a {
-          color: var(--secondary);
+          color: var(--secondary) !important;
           text-decoration: underline;
         }
       }

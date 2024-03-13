@@ -1,4 +1,3 @@
-// Importez useState pour gérer l'état
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { BsStarFill } from "react-icons/bs";
@@ -14,7 +13,7 @@ function ModalAvis({ showModal, handleModalClose, serviceId,handleClose }) {
   const [formData, setFormData] = useState({
     FirstNameVisiter: "",
     LastNameVisiter: "",
-    Email: "",
+    EmailVisiter: "",
     Comment: "",
     Note: 0,
   });
@@ -36,43 +35,60 @@ function ModalAvis({ showModal, handleModalClose, serviceId,handleClose }) {
     });
   };
 
-  // Définissez la fonction handleSubmit pour soumettre les données du formulaire
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Formulaire soumis avec les données :", formData);
+  
+ // Définissez la fonction handleSubmit pour soumettre les données du formulaire
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      // Simulez la récupération de l'utilisateur connecté depuis le stockage local
-      const userId = localStorage.getItem("userId");
+  // Vérifiez si la note est égale à zéro
+  if (formData.Note === 0) {
+    console.error("La note est obligatoire");
+    // Affichez un message d'erreur ou effectuez toute autre action nécessaire
+    return;
+  }
 
-      // Créez un objet data avec les données du formulaire
-      const data = {
-        ...formData,
-        User_ID: userId,
-        Service_ID: serviceId,
-      };
+  console.log("Formulaire soumis avec les données :", formData);
 
-      // Continuez avec la soumission du formulaire
-      const response = await axios.post(`${hostname}/avis`, data);
-      console.log("Réponse du serveur:", response.data);
+  try {
+    // Simulez la récupération de l'utilisateur connecté depuis le stockage local
+    const userId = localStorage.getItem("userId");
 
-      // Réinitialisez l'état du formulaire après la soumission réussie
-      setFormData({
-        FirstNameVisiter: "",
-        LastNameVisiter: "",
-        Email: "",
-        Comment: "",
-        Note: 0,
-      });
+    // Créez un objet data avec les données du formulaire
+    const data = {
+      ...formData,
+      User_ID: userId,
+      Service_ID: serviceId,
+    };
 
-      // Fermez la modal
-      handleModalClose();
-      handleClose();
-    } catch (error) {
-      console.error("Erreur côté frontend:", error);
-      // Gérez les erreurs ici si nécessaire
+     // Si userId n'est pas nul, définissez les champs à null
+     if (userId !== null) {
+      data.FirstNameVisiter = null;
+      data.LastNameVisiter = null;
+      data.EmailVisiter = null;
     }
-  };
+
+    // Continuez avec la soumission du formulaire
+    const response = await axios.post(`${hostname}/avis`, data);
+    console.log("Réponse du serveur:", response.data);
+
+    // Réinitialisez l'état du formulaire après la soumission réussie
+    setFormData({
+      FirstNameVisiter: "",
+      LastNameVisiter: "",
+      EmailVisiter: "",
+      Comment: "",
+      Note: 0,
+    });
+
+    // Fermez la modal
+    handleModalClose();
+    handleClose();
+  } catch (error) {
+    console.error("Erreur côté frontend:", error);
+    // Gérez les erreurs ici si nécessaire
+  }
+};
+
 
   return (
     <Modal show={showModal} onHide={handleModalClose} centered>
@@ -130,7 +146,7 @@ function ModalAvis({ showModal, handleModalClose, serviceId,handleClose }) {
                 <Form.Control
                   type="email"
                   placeholder="Votre email"
-                  name="Email"
+                  name="EmailVisiter"
                   value={formData.Email}
                   onChange={handleChange}
                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"

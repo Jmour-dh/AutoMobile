@@ -1,9 +1,11 @@
+@use "../../assets/styles/mixins" as mixin;
+
 .container {
   width: 80%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-color: var(--secondary);
   margin-bottom: 20px;
   border-radius: 5px;
@@ -23,10 +25,65 @@
     form {
       width: 100%;
     }
+
+    @include mixin.md-lt {
+      width: 100%;
+    }
+    @include mixin.md {
+      width: 100%;
+      
+    }
+    @include mixin.sm-lt {
+      width: 100%;
+    }
+  
+    @include mixin.sm {
+      width: 100%;
+    }
+
+    @include mixin.xs {
+      width: 100%;
+    }
   }
 
   .hours {
     width: 45%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+      rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+      rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    border-radius: 5px;
+    height: 100%;
+    margin: 5px;
+
+    h3 {
+      text-align: center;
+    }
+
+    p {
+      margin: 5px;
+    }
+
+    @include mixin.md-lt {
+      width: 100%;
+    }
+    @include mixin.md {
+      width: 100%;
+      
+    }
+    @include mixin.sm-lt {
+      width: 100%;
+    }
+  
+    @include mixin.sm {
+      width: 100%;
+    }
+
+    @include mixin.xs {
+      width: 100%;
+    }
   }
 
   label {
@@ -62,9 +119,33 @@
     border-radius: 20px;
     width: 200px;
     margin-left: 25%;
+
+    @include mixin.xs {
+      width: 150px;
+      margin-left: 20%;
+    }
   }
 
   p {
     text-align: center;
+  }
+
+  @include mixin.md-lt {
+    flex-direction: column;
+  }
+  @include mixin.md {
+    flex-direction: column;
+    
+  }
+  @include mixin.sm-lt {
+    flex-direction: column;
+  }
+
+  @include mixin.sm {
+    flex-direction: column;
+  }
+
+  @include mixin.xs {
+    flex-direction: column;
   }
 }

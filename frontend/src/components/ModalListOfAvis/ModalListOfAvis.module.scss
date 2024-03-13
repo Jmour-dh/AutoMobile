@@ -1,3 +1,4 @@
+@use "../../assets/styles/mixins" as mixin;
 
 .modal {
   position: fixed;
@@ -5,16 +6,24 @@
   left: 0;
   width: 100%;
   height: 100%;
-  //background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+
 
   .modalContent {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    width: 40%;
+    width: 80%;
+
+    @include mixin.xs {
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 
     .contentAvis {
       width: 100%;

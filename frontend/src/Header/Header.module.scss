@@ -5,6 +5,7 @@
   height: 100px;
   display: flex;
   justify-content: space-around;
+  
   .logo {
     width: 250px !important;
     height: 90%;
@@ -18,6 +19,7 @@
   .menu {
     width: 60%;
     height: 100%;
+    display: flex;
     align-items: end;
 
     .list {
@@ -25,7 +27,7 @@
       height: 50%;
       display: flex;
       justify-content: space-around;
-      align-items: center;
+      align-items: end;
 
       li {
         padding: 10px;

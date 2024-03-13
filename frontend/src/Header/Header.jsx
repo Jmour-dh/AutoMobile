@@ -30,7 +30,7 @@ function Header() {
             <img src={images.Logo} alt="Logo" />
           </Link>
         </div>
-        <nav className={`${styles.menu} d-flex justify-content-around `}>
+        <nav className={`${styles.menu} justify-content-around `}>
           <ul className={styles.list}>
             {navLinks.map(({ to, text }) => (
               <li key={to}>
