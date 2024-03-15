@@ -95,10 +95,26 @@ const deleteMoto = (req, res) => {
     });
 };
 
+const getAllMotosByCriteria = async (req, res) => {
+  try {
+    // Récupère les critères de filtrage depuis la requête
+    const criteria = req.query;
+
+    // Utilise la fonction filterMotosByCriteria pour obtenir les motos filtrées
+    const filteredMotos = await models.moto.filterMotosByCriteria(criteria);
+
+    res.send(filteredMotos);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   createMoto,
   getMotoByID,
   updateMoto,
   getAllMotos,
   deleteMoto,
+  getAllMotosByCriteria,
 };

@@ -8,6 +8,7 @@ const { verifyToken } = require("../middlewares/auth");
 
 router.get("/motos/:id", motoController.getMotoByID);
 router.get("/motos", motoController.getAllMotos);
+router.get("/motos-filter", motoController.getAllMotosByCriteria);
 
 // Create a new moto
 

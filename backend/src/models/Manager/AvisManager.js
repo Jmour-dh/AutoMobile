@@ -69,15 +69,10 @@ class avisManager extends AbstractManager {
       FROM ${this.table} A
       LEFT JOIN user U ON A.User_ID = U.User_ID
       WHERE A.Service_ID = ?`;
-  
+
     const values = [serviceID];
-  
+
     return this.database.query(query, values);
   }
-  
-  
-  
-  
-  
 }
 module.exports = avisManager;

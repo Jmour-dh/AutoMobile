@@ -129,6 +129,34 @@ class motoManager extends AbstractManager {
 
     return this.database.query(query, values);
   }
+
+  async filterMotosByCriteria(criteria) {
+    let query = `SELECT * FROM ${this.table}`;
+
+    // Vérifiez si des critères de filtre ont été fournis
+    if (criteria && Object.keys(criteria).length > 0) {
+      query += " WHERE";
+
+      // Ajoutez les conditions de filtre en fonction des critères fournis
+      if (criteria.Marque) {
+        query += ` Marque = '${criteria.Marque}' AND`;
+      }
+
+      if (criteria.Year) {
+        query += ` Year = '${criteria.Year}' AND`;
+      }
+
+      if (criteria.OdometerMileage) {
+        query += ` OdometerMileage = ${criteria.OdometerMileage} AND`;
+      }
+
+      // Supprimez le "AND" superflu à la fin de la requête
+      query = query.slice(0, -3);
+    }
+
+    const [rows] = await this.database.query(query);
+    return rows;
+  }
 }
 
 module.exports = motoManager;
