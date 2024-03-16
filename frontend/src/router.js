@@ -10,6 +10,7 @@ const Login = lazy(() => import("./Pages/Login/Login"));
 const Register = lazy(() => import("./Pages/Register/Register"));
 const Service = lazy(() => import("./Pages/Service/Service"));
 const Occasion = lazy(() => import("./Pages/Occasion/Occasion"));
+const Moto = lazy(() => import("./Pages/Moto/Moto"));
 
 //users
 const Admin = lazy(() => import("./Pages/UsersPages/Admin/Admin"));
@@ -208,6 +209,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/motos/:motoId",
+        element: <Moto />,
       },
       {
         path: "/register",

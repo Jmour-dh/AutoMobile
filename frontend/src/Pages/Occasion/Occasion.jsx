@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { hostname } from "../../hostname/hostname";
-import Img from "../../assets/images/about.avif"
 import axios from "axios";
 import styles from "./Occasion.module.scss";
+import BanniereFilter from "../../components/BanniereFilter/BanniereFilter";
 
 function Occasion() {
   const [motos, setMotos] = useState([]);
@@ -15,48 +15,50 @@ function Occasion() {
 
   const fetchMotos = async () => {
     try {
+      console.log("Fetching motos with filters:", filters);
       const response = await axios.get(`${hostname}/motos-filter`, {
         params: filters,
       });
       setMotos(response.data);
-      console.log("data moto", response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des motos :", error);
     }
-  }
-
+  };
+  
   useEffect(() => {
-    fetchMotos();
-  }, [filters]);
-
+    fetchMotos(filters); // Passer les nouveaux filtres à la fonction fetchMotos
+  }, [filters]); // Mettre à jour la liste des motos lorsque les filtres changent
+  
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
   };
 
   return (
     <div className={styles.occasion}>
+      <div className={styles.filterSection}>
+        <BanniereFilter onFilterChange={handleFilterChange} filters={filters} />
+      </div>
       <div className={styles.carsList}>
         <ul>
-          <li>
-            <Link to="#">
-            <img src={Img} alt="dd" />
-            <div className={styles.details}>
-            <h3>BMW</h3>
-            <div className="d-flex justify-content-center">
-                    <p className="p-10 m-5 mr-10 border-right">
-                     2500
-                    </p>
-                    <p className="p-10 m-5 mr-10 border-right">
-                      67000 km
-                    </p>
-                    <p className="p-10 m-5 mr-10 border-right">
-                      essance
-                    </p>
+          {motos.map((moto) => (
+            <li key={moto.Moto_ID}>
+              <Link to={`/moto/${moto.Moto_ID}`}>
+                <img
+                  src={`${hostname}/upload/${moto.images[0]}`}
+                  alt={` ${moto.Title}`}
+                />
+                <div className={styles.details}>
+                  <h3>{moto.Title}</h3>
+                  <div className="d-flex justify-content-center">
+                    <p className="p-10 m-5 mr-10 border-right">{moto.Year}</p>
+                    <p className="p-10 m-5 mr-10 border-right">{moto.OdometerMileage} km</p>
+                    <p className="p-10 m-5 mr-10 border-right">{moto.Energy}</p>
                   </div>
                   <p className="p-10 m-5 ">15000 €</p>
-            </div>
-            </Link>
-          </li>
+                </div>
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

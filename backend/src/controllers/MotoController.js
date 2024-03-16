@@ -96,15 +96,27 @@ const deleteMoto = (req, res) => {
 };
 
 const getAllMotosByCriteria = async (req, res) => {
+  const criteria = req.query; // Récupère les critères de filtre de la requête
+
   try {
-    // Récupère les critères de filtrage depuis la requête
-    const criteria = req.query;
+    // Récupère toutes les motos avec leurs images
+    const motos = await models.moto.findAllWithImages();
 
-    // Utilise la fonction filterMotosByCriteria pour obtenir les motos filtrées
-    const filteredMotos = await models.moto.filterMotosByCriteria(criteria);
+    // Filtrer les motos en fonction des critères
+    const filteredMotos = motos.filter((moto) => {
+      // Vérifie si chaque critère spécifié dans la requête correspond à la moto
+      return (
+        (!criteria.Marque || moto.Marque === criteria.Marque) &&
+        (!criteria.Year || moto.Year === +criteria.Year) &&
+        (!criteria.OdometerMileage ||
+          moto.OdometerMileage <= criteria.OdometerMileage )
+      );
+    });
 
+    // Envoie les données des motos filtrées en réponse
     res.send(filteredMotos);
   } catch (err) {
+    // En cas d'erreur, affiche l'erreur dans la console et envoie un code d'état 500 (erreur serveur) en réponse
     console.error(err);
     res.sendStatus(500);
   }

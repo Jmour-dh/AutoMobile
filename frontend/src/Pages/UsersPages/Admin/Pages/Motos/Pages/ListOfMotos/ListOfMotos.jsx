@@ -22,6 +22,7 @@ function ListOfMotos() {
 
         const response = await axios.get(`${hostname}/motos`, config);
         setMotos(response.data);
+        
         console.log("data moto", response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des motos:", error);
