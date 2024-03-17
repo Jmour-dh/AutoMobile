@@ -1,0 +1,119 @@
+.moto {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 90%;
+    min-height: 70vh;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    
+
+    .contentMoto {
+      width: 70%;
+      height: 100%;
+  
+
+      .contentBtn {
+        display: flex;
+        align-items: center;
+
+        a {
+          display: flex;
+          align-items: center;
+     margin: 5px;
+        }
+      }
+
+      .contentInfo {
+        width: 65%;
+        height: 100%;
+        margin-top: 3%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .content {
+          display: flex;
+          width: 100%;
+          justify-content: space-around;
+        }
+
+        h3,
+        h4 {
+          margin: 3px;
+          text-decoration: underline;
+        }
+
+        p {
+          margin-left: 5px;
+        }
+
+        label {
+          font-weight: bold;
+        }
+      }
+
+      .contentImg {
+        width: 80%;
+        height: 100%;
+        margin-top: 5%;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .contentMsg {
+      position: sticky;
+      margin-top: 10%;
+      top: 10%;
+      width: 380px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 15px;
+      box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1),
+        10px 10px 30px 4px rgba(45, 78, 255, 0.15);
+
+      h3 {
+        margin: 5px auto;
+      }
+
+      p {
+        margin: 5px;
+        padding: 5px;
+        font-size: 1rem;
+      }
+    }
+  }
+  .modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .modalContent p {
+    margin-bottom: 20px;
+  }
+  
+}

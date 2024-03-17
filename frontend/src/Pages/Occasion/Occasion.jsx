@@ -49,11 +49,11 @@ function Occasion() {
                 <div className={styles.details}>
                   <h3>{moto.Title}</h3>
                   <div className="d-flex justify-content-center">
-                    <p className="p-10 m-5 mr-10 border-right">{moto.Year}</p>
-                    <p className="p-10 m-5 mr-10 border-right">{moto.OdometerMileage} km</p>
-                    <p className="p-10 m-5 mr-10 border-right">{moto.Energy}</p>
+                    <p className="  border-right">{moto.Year}</p>
+                    <p className=" border-right">{moto.OdometerMileage} km</p>
+                    <p className=" border-right">{moto.Energy}</p>
                   </div>
-                  <p className="p-10 m-5 ">{moto.Price} €</p>
+                  <p >{moto.Price} €</p>
                 </div>
               </Link>
             </li>

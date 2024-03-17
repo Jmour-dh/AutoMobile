@@ -24,6 +24,8 @@ import imgAbout from "../assets/images/about.avif";
 //profile
 import profile from "../assets/images/profile.avif";
 
+import counter from "../assets/images/underMileage.svg";
+
 const images = {
   Logo,
   ImgHome1,
@@ -42,6 +44,7 @@ const images = {
   yamahaMt07,
   imgAbout,
   profile,
+  counter
 };
 
 export default images;
