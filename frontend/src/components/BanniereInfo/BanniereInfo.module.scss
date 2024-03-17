@@ -1,0 +1,76 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.banInfo {
+  width: 100%;
+  height: 360px;
+  display: flex;
+  justify-content: space-around;
+  margin: 32px auto;
+
+  @include mixin.md {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @include mixin.sm-lt {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @include mixin.sm {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @include mixin.xs {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--font-family-sansOpen);
+
+
+    h2 {
+      font-size: 1.5rem;
+      padding-bottom: 10px;
+    }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #eef0f1;
+      margin-right: 10px;
+    }
+
+    @include mixin.xs {
+    width: 100%;
+    }
+  }
+
+}

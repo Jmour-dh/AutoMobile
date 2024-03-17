@@ -2,6 +2,10 @@ const models = require("../models");
 
 const createService = (req, res) => {
   const service = req.body;
+  if (req.file) {
+    service.ImageUrl = req.file.filename;
+  }
+
   models.service
     .insertService(service)
     .then(([result]) => {
@@ -43,6 +47,9 @@ const getAllServices = (req, res) => {
 
 const updateService = (req, res) => {
   const service = req.body;
+  if (req.file) {
+    service.ImageUrl = req.file.filename;
+  }
   const serviceID = req.Service_ID;
   service.id = parseInt(req.params.id, 10);
 

@@ -24,14 +24,11 @@ router.post("/verifyEmail", userController.verifyExistingEmail);
 router.post("/verifyPhone", userController.verifyExistingPhone);
 router.post("/login", userController.login, verifyPassword); // Login route
 
-// Middleware to verify token for routes defined below
-router.use(verifyToken);
-
 // Routes that require token verification
-router.get("/users/:id", userController.getUserByID);
-router.get("/users", userController.getAllUsers);
-router.put("/users/:id", userController.updateUser);
-router.delete("/users/:id", userController.deleteUser);
-router.get("/logout", userController.logout, experiedToken);
+router.get("/users/:id", verifyToken, userController.getUserByID);
+router.get("/users", verifyToken, userController.getAllUsers);
+router.put("/users/:id", verifyToken, userController.updateUser);
+router.delete("/users/:id", verifyToken, userController.deleteUser);
+router.get("/logout", verifyToken, userController.logout, experiedToken);
 
 module.exports = router;

@@ -42,11 +42,11 @@ function Register() {
       )
       .min(2, "Le nom doit comporter au moins 2 caractères")
       .max(30, "Le nom ne peut pas dépasser 30 caractères"),
-    LastName: yup
+      LastName: yup
       .string()
-      .required("Le prénom est requise")
+      .required("Le prénom est requis")
       .matches(
-        /^[A-Za-z]+$/,
+        /^[A-Za-z\s]+$/,
         "Le prénom doit contenir uniquement des caractères alphabétiques"
       )
       .min(2, "Le prénom doit comporter au moins 2 caractères")
@@ -159,7 +159,7 @@ function Register() {
                 )}
               </div>
               <div className="d-flex flex-column mx-10">
-                <label htmlFor="LastName"> Votre Prénom:</label>
+                <label htmlFor="LastName"> Prénom:</label>
                 <input type="text" name="LastName" {...register("LastName")} />
                 {errors.LastName && (
                   <p className="form-error">{errors.LastName.message}</p>
@@ -173,7 +173,7 @@ function Register() {
                 )}
               </div>
               <div className="d-flex flex-column  mx-10">
-                <label htmlFor="Phone"> TéléPhone:</label>
+                <label htmlFor="Phone"> Téléphone:</label>
                 <input type="text" name="Phone" {...register("Phone")} />
                 {errors.Phone && (
                   <p className="form-error">{errors.Phone.message}</p>

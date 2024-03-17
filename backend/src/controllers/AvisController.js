@@ -80,10 +80,25 @@ const deleteAvis = (req, res) => {
     });
 };
 
+const getAllAvisByServiceID = (req, res) => {
+  const { serviceID } = req.params;
+
+  models.avis
+    .findAllByServiceID(serviceID)
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   createAvis,
   getAvisByID,
   getAllAvis,
   updateAvis,
   deleteAvis,
+  getAllAvisByServiceID,
 };

@@ -1,0 +1,19 @@
+.list {
+  width: 100%;
+  height: 100%;
+  background-color: #f1c40f;
+  padding: 5px;
+  display: flex;
+
+  li {
+    padding: 5px;
+    
+
+    a {
+      padding: 5px;
+      &:hover {
+        color: var(--primary) !important;
+      }
+    }
+  }
+}

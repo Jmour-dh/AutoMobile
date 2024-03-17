@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom";
 function ProtectedRoute({ children, allowedRoles }) {
   const token = localStorage.getItem("userToken");
   const roleId = localStorage.getItem("roleId");
+  console.log("roleId", roleId);
+  console.log("allowedRoles",allowedRoles);
 
   if (!token) {
     // Si l'utilisateur n'a pas de token, redirige vers la page de connexion

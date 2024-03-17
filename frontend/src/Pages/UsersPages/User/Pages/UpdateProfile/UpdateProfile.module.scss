@@ -1,0 +1,60 @@
+@use "../../../../../assets/styles/mixins" as mixin;
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 40%;
+    height: 70%;
+    font-family: var(--font-family-openSans);
+    background: var(--white);
+    box-shadow: var(--boxShadow2);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    .contentInfo {
+      width: 100%;
+    }
+
+    label {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input {
+      border: 1px solid;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      width: 100%;
+    }
+    button {
+      background-color: "#4CAF50" !important;
+    }
+    p {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    @include mixin.sm-lt {
+      width: 80%;
+      margin: 0;
+    }
+    @include mixin.md {
+      width: 80%;
+      margin: 0;
+    }
+    @include mixin.xs {
+      width: 80%;
+      margin: 0;
+    }
+  }
+}

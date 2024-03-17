@@ -22,14 +22,24 @@ function NavigationAdmin() {
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem("userToken");
-      await axios.get(`${hostname}/logout`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const tokenExpiryTime = localStorage.getItem("tokenExpiryTime");
+      const currentTime = new Date().getTime();
 
-      logout();
-      navigate("/");
+      if (currentTime > tokenExpiryTime) {
+        // Le token a expiré
+        console.log("Token expiré. Déconnexion...");
+        logout();
+        navigate("/");
+      } else {
+        await axios.get(`${hostname}/logout`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        logout();
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Erreur lors de la déconnexion", error);
     }

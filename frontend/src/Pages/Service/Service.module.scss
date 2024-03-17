@@ -1,0 +1,125 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #aaa69d;
+
+  .contentService {
+    width: 90%;
+    height: 100%;
+    margin: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .contentImg {
+      width: 40%;
+      height: 300px;
+
+      @include mixin.md {
+        width: 90%;
+      }
+
+      @include mixin.sm-lt {
+        width: 90%;
+      }
+
+      @include mixin.sm {
+        width: 90%;
+      }
+
+      @include mixin.xs {
+        width: 90%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .contentdetails {
+      width: 60%;
+      height: 300px;
+      background-color: #f1f2f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        width: 50%;
+        margin: 10px;
+        font-family: var(font-family-sansOpen);
+        text-align: center;
+      }
+
+      h3 {
+        margin: 10px;
+        font-family: var(font-family-roboto);
+      }
+
+      span {
+        color: var(--secondary);
+        text-decoration: underline;
+      }
+
+      .avisBtn {
+        align-self: flex-end;
+        margin-top: 1%;
+        margin-right: 5%;
+
+        button {
+          background-color: var(--secondary);
+          color: white;
+          padding: 10px 30px;
+          border-radius: 10px;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        @include mixin.xs {
+          margin-top: 10%;
+        }
+      }
+
+      @include mixin.md {
+        width: 90%;
+      }
+
+      @include mixin.sm-lt {
+        width: 90%;
+      }
+
+      @include mixin.sm {
+        width: 90%;
+      }
+
+      @include mixin.xs {
+        width: 90%;
+      }
+    }
+
+    @include mixin.md {
+      flex-direction: column;
+    }
+    @include mixin.sm-lt {
+      flex-direction: column;
+    }
+
+    @include mixin.sm {
+      flex-direction: column;
+    }
+
+    @include mixin.xs {
+      flex-direction: column;
+    }
+  }
+}

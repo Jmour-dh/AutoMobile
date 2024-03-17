@@ -73,26 +73,18 @@ const updateUser = (req, res) => {
     });
 };
 
-const deleteUser = async (req, res, next) => {
-  const emailInput = req.body.Email;
-
-  const [user] = await models.user.findByPK(req.params.id);
-  const userEmail = user[0].Email;
-
-  if (emailInput === userEmail) {
-    next();
-  } else {
-    res.sendStatus(403);
-  }
+const deleteUser = async (req, res) => {
+  const userID = req.params.id;
 
   models.user
-    .delete(emailInput)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
+    .delete(userID)
+    .then((result) => {
+      if (result.affectedRows > 0) {
+        console.info(
+          `Le user avec l'ID ${userID} a été supprimée avec succès.`
+        );
       }
+      res.sendStatus(204);
     })
     .catch((err) => {
       console.error(err);

@@ -66,7 +66,6 @@ const verifyPassword = async (req, res) => {
 const verifyToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    // console.info(authHeader);
     if (!authHeader) {
       return res
         .status(401)
@@ -100,7 +99,6 @@ const verifyToken = async (req, res, next) => {
         resolve();
       });
     });
-
     next();
   } catch (err) {
     console.error(err);

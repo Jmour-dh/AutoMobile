@@ -30,13 +30,13 @@ function Header() {
             <img src={images.Logo} alt="Logo" />
           </Link>
         </div>
-        <nav className={`${styles.menu} d-flex justify-content-around `}>
+        <nav className={`${styles.menu} justify-content-around `}>
           <ul className={styles.list}>
             {navLinks.map(({ to, text }) => (
               <li key={to}>
                 {to === "/login" && token ? (
                   // Si l'utilisateur est connecté, redirige vers le profil en fonction du roleId
-                  <NavLink to={roleId === "1" ? "/admin/messages/list" : roleId === "2" ? "/user" : "/personal"} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
+                  <NavLink to={roleId === "1" ? "/admin/messages/list" : roleId === "2" ? "/user/details/tabBord" : "/personal/messages/list"} className={({ isActive }) => (isActive ? "Linkactive" : "")}>
                     {text}
                   </NavLink>
                 ) : (

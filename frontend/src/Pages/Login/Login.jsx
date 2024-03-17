@@ -77,10 +77,10 @@ function Login() {
           navigate("/admin/messages/list");
           break;
         case 2:
-          navigate("/user");
+          navigate("/user/details/tabBord");
           break;
         default:
-          navigate("/personal");
+          navigate("/personal/messages/list");
           break;
       }
     } catch (error) {
