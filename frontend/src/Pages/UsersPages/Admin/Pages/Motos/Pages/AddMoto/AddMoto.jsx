@@ -38,9 +38,6 @@ function AddMoto() {
     Powers: yup.number(),
     Price: yup.number(),
     ImageUrl: yup.array(),
-    // .min(1, "Veuillez sélectionner au moins une image")
-    // .max(6, "Vous ne pouvez sélectionner que jusqu'à six images")
-    // .required("Veuillez sélectionner au moins une image"),
   });
 
   const initialValues = {
@@ -205,7 +202,7 @@ selectedImages.forEach((image, index) => {
               )}
             </div>
             <div className="d-flex flex-column mx-10">
-              <label htmlFor="CreationDate"> Date de création:</label>
+              <label htmlFor="CreationDate"> Mise en circulation:</label>
               <input
                 type="date"
                 name="CreationDate"

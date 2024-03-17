@@ -9,14 +9,18 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ModalMessage from "../../components/ModalMessage/ModalMessage";
+import { useAuth } from "../../utils/UseConnecte";
 
 function Moto() {
   const { motoId } = useParams();
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const roleId = localStorage.getItem("roleId");
   const [moto, setMoto] = useState({});
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showTelephoneModal, setShowTelephoneModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     if (motoId) {
       const fetchMoto = async () => {
@@ -88,7 +92,7 @@ function Moto() {
                 {moto.Marque} {moto.Modele}
               </p>
               <div className={styles.content}>
-                <div className="d-flex flex-column m-10">
+                <div className="d-flex flex-column w-100  m-10">
                   <h4>Caractéristiques</h4>
                   <div className="d-flex m-10">
                     <label>Année :</label>
@@ -128,7 +132,7 @@ function Moto() {
                     <p>{moto.NumberOfPlaces}</p>
                   </div>
                 </div>
-                <div className="d-flex flex-column m-10">
+                <div className="d-flex flex-column w-100 m-10">
                   <h4>Puissance du véhicule</h4>
                   <div className="d-flex  m-10">
                     <label>Puissance fiscale :</label>
@@ -151,14 +155,23 @@ function Moto() {
             <p className=" border-right">{moto.Energy}</p>
           </div>
           <p>{moto.Price} €</p>
-          <div className="d-flex justify-content-center ">
-            <button className="bn632-hover bn26" onClick={handleTelephoneClick}>
-              Télephone
-            </button>
-            <button className="bn632-hover bn22" onClick={handleModalShow}>
-              Message
-            </button>
-          </div>
+          {(isLoggedIn && roleId === "2") || !isLoggedIn ? (
+            <div className="d-flex justify-content-center ">
+              <button
+                className="bn632-hover bn26"
+                onClick={handleTelephoneClick}
+              >
+                Télephone
+              </button>
+              <button className="bn632-hover bn22" onClick={handleModalShow}>
+                Message
+              </button>
+            </div>
+          ) : (
+            <p style={{ color: "red", textDecoration: "underline" }}>
+              Accès utilisateur
+            </p>
+          )}
         </div>
       </div>
       {showTelephoneModal && (

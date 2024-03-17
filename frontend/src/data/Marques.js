@@ -8,7 +8,7 @@ export const Marques = [
   },
   {
     id: 2,
-    name: "Harley Davidson ",
+    name: "Harley Davidson",
     image: images.HarleyDavidson,
   },
   {

@@ -18,8 +18,8 @@ function UpdateService() {
       .string()
       .required("Le nom est requis")
       .matches(
-        /^[A-Za-z\s]+$/,
-        "Le nom doit contenir uniquement des caractères alphabétiques"
+        /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/,
+        "Le nom doit contenir uniquement des caractères alphabétiques, y compris les accents"
       )
       .min(2, "Le nom doit comporter au moins 2 caractères")
       .max(30, "Le nom ne peut pas dépasser 30 caractères"),
