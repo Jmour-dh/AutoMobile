@@ -5,45 +5,51 @@
   padding: 20px;
   min-height: 100vh;
   display: flex;
+  justify-content: center;
 
   .filterSection {
     width: 25%;
     margin-right: 20px;
 
+    @include mixin.md-lt {
+      width: 100%;
+    }
+
     @include mixin.xs {
       width: 100%;
-     }
-
-    .BanniereFilter {
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: #f8f9fa;
-      padding: 20px;
     }
+
   }
 
   .carsList {
-    display: flex;
-    flex-direction: column; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr, 1fr, 1fr);
+    gap: 20px;
     justify-content: center;
     align-items: center;
     width: 75%;
     height: 100%;
 
+    
+
     ul {
       display: flex;
       flex-wrap: wrap;
 
+      @include mixin.md {
+        align-items: center;
+        justify-content: center;
+      }
+
       @include mixin.xs {
         align-items: center;
         justify-content: center;
-       }
+      }
 
       li {
         width: calc(25% - 20px);
         margin: 10px;
-      
+
         -webkit-box-shadow: 0px 10px 13px -7px #000000,
           5px 5px 15px 5px rgba(0, 0, 0, 0);
         box-shadow: 0px 10px 13px -7px #000000,
@@ -86,12 +92,43 @@
         }
       }
     }
+
+    @include mixin.sm {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr, 1fr);
+    }
+
+    @include mixin.sm-lt {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr, 1fr);
+    }
+
+    @include mixin.md-lt {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr, 1fr);
+    }
+    
+    @include mixin.md {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr, 1fr);
+    }
+  }
+
+  @include mixin.sm-lt{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include mixin.md {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   @include mixin.xs {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   }
-   
+  }
 }

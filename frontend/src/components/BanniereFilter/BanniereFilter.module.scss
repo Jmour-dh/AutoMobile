@@ -5,6 +5,13 @@
   background-color: #f0f0f0;
   border-radius: 5px;
 
+  .interval {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+width: 100%;
+  }
+
   h2 {
     font-size: 1.2rem;
     margin-bottom: 10px;
@@ -13,14 +20,21 @@
   label {
     display: block;
     margin-bottom: 10px;
+    width: 100%;
 
     input {
-      width: 100%;
+     width: 30%;
       padding: 8px;
       box-sizing: border-box;
       margin-top: 5px;
       display: flex;
       justify-content: center;
+    }
+
+    span {
+      width: 70%;
+      margin-top: 5px;
+      padding: 8px;
     }
   }
 

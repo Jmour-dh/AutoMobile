@@ -109,7 +109,7 @@ const getAllMotosByCriteria = async (req, res) => {
         (!criteria.Marque || moto.Marque === criteria.Marque) &&
         (!criteria.Year || moto.Year === +criteria.Year) &&
         (!criteria.OdometerMileage ||
-          moto.OdometerMileage <= criteria.OdometerMileage )
+          moto.OdometerMileage <= criteria.OdometerMileage)
       );
     });
 

@@ -9,9 +9,9 @@ function BanniereFilter({ onFilterChange, filters }) {
   const [yearFilter, setYearFilter] = useState(filters.Year);
   const [year, setYear] = useState([]);
   const [odometerMileageIntervals, setOdometerMileageIntervals] = useState([
-    { label: "0-50000", value: "50000", checked: false },
-    { label: "50001-100000", value: "100000", checked: false },
-    { label: "100001+", value: "500000", checked: false },
+    { label: "< 50000", value: "50000", checked: false },
+    { label: " < 100000", value: "100000", checked: false },
+    { label: " + 100001", value: "500000", checked: false },
   ]);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function BanniereFilter({ onFilterChange, filters }) {
       <label>
         Kilométrage :
         {odometerMileageIntervals.map((interval, index) => (
-          <div key={`interval-${index}`}>
+          <div key={`interval-${index}`} className={styles.interval}>
             <input
               type="checkbox"
               checked={interval.checked || false}

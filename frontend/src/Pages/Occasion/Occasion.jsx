@@ -15,7 +15,6 @@ function Occasion() {
 
   const fetchMotos = async () => {
     try {
-      console.log("Fetching motos with filters:", filters);
       const response = await axios.get(`${hostname}/motos-filter`, {
         params: filters,
       });
@@ -42,7 +41,7 @@ function Occasion() {
         <ul>
           {motos.map((moto) => (
             <li key={moto.Moto_ID}>
-              <Link to={`/moto/${moto.Moto_ID}`}>
+              <Link to={`/motos/${moto.Moto_ID}`}>
                 <img
                   src={`${hostname}/upload/${moto.images[0]}`}
                   alt={` ${moto.Title}`}
@@ -54,7 +53,7 @@ function Occasion() {
                     <p className="p-10 m-5 mr-10 border-right">{moto.OdometerMileage} km</p>
                     <p className="p-10 m-5 mr-10 border-right">{moto.Energy}</p>
                   </div>
-                  <p className="p-10 m-5 ">15000 €</p>
+                  <p className="p-10 m-5 ">{moto.Price} €</p>
                 </div>
               </Link>
             </li>
