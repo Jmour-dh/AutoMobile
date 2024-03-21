@@ -22,7 +22,7 @@ router.post(
 // Routes that don't require token verification
 router.post("/verifyEmail", userController.verifyExistingEmail);
 router.post("/verifyPhone", userController.verifyExistingPhone);
-router.post("/login", userController.login, verifyPassword); // Login route
+router.post("/login", userController.login, verifyPassword);
 
 // Routes that require token verification
 router.get("/users/:id", verifyToken, userController.getUserByID);

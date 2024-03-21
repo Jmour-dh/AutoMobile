@@ -13,7 +13,11 @@ function Footer() {
   const sections = [
     {
       title: "L'ENTREPRISE",
-      links: [{ label: "Qui sommes-nous?", to: "/about" }],
+      links: [
+        { label: "Qui sommes-nous?", to: "/about" },
+        { label: "Politique de confidentialite", to: "#" },
+        { label: "Mentions légale", to: "#" },
+      ],
     },
 
     {
