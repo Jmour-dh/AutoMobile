@@ -205,7 +205,7 @@ selectedImages.forEach((image, index) => {
               )}
             </div>
             <div className="d-flex flex-column mx-10">
-              <label htmlFor="CreationDate"> Date de création:</label>
+              <label htmlFor="CreationDate"> Mise en circulation:</label>
               <input
                 type="date"
                 name="CreationDate"
