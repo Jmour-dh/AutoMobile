@@ -83,9 +83,17 @@ function UpdateMoto() {
       console.log("motoDetails", motoDetails);
 
       // Met à jour les valeurs du formulaire avec les détails de la moto récupérés
-      Object.keys(motoDetails).forEach((key) => {
-        setValue(key, motoDetails[key]);
-      });
+      // Met à jour les valeurs du formulaire avec les détails de la moto récupérés
+Object.keys(motoDetails).forEach((key) => {
+  if (key === "CreationDate") {
+    // Convertit la date en format "YYYY-MM-DD" pour l'input de date
+    const creationDate = new Date(motoDetails[key]).toISOString().split('T')[0];
+    setValue(key, creationDate);
+  } else {
+    setValue(key, motoDetails[key]);
+  }
+});
+
 
       // Met à jour les images sélectionnées avec les images actuelles de la moto
       setSelectedImages(motoDetails.images);
@@ -174,7 +182,7 @@ function UpdateMoto() {
       );
 
       console.log("Réponse du serveur :", response.data);
-      navigate("/personal/motos/list");
+      navigate("/admin/motos/list");
     } catch (error) {
       console.error("Erreur côté frontend :", error);
       setError("generic", { type: "generic", message: error.message });
@@ -182,7 +190,7 @@ function UpdateMoto() {
   });
 
   const handleCancelClick = () => {
-    navigate("/personal/motos/list");
+    navigate("/admin/motos/list");
   };
 
   return (
@@ -250,7 +258,7 @@ function UpdateMoto() {
               )}
             </div>
             <div className="d-flex flex-column mx-10">
-              <label htmlFor="CreationDate"> Date de création:</label>
+              <label htmlFor="CreationDate"> Mise en circulation:</label>
               <input
                 type="date"
                 name="CreationDate"

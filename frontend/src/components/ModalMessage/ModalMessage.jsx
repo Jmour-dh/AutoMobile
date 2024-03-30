@@ -138,6 +138,7 @@ function ModalMessage({ showModal, handleModalClose, motoId }) {
               name="Message"
               value={formData.Comment}
               onChange={handleChange}
+              pattern="[A-Za-zÀ-ÖØ-öø-ÿ -']+"
               required
             />
           </Form.Group>
